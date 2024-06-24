@@ -25,18 +25,18 @@ class CreateGroupsTable extends Migration
 
         Group::truncate();
         DB::table('groups')->insert([
-            ['id' => 1, 'name' => 'آزاد', 'emoji' => '❓'],
-            ['id' => 2, 'name' => 'کسب-و-کار', 'emoji' => '💸'],
-            ['id' => 3, 'name' => 'سرگرمی', 'emoji' => '🎪'],
-            ['id' => 4, 'name' => 'ورزشی', 'emoji' => '⚽'],
-            ['id' => 5, 'name' => 'ادبیات', 'emoji' => '🎭'],
-            ['id' => 6, 'name' => 'هنری', 'emoji' => '🎨'],
-            ['id' => 7, 'name' => 'خبری', 'emoji' => '📡'],
-            ['id' => 8, 'name' => 'فیلم-موسیقی', 'emoji' => '🔊'],
-            ['id' => 9, 'name' => 'تصویر', 'emoji' => '📷'],
-            ['id' => 10, 'name' => 'علمی', 'emoji' => '🔭'],
-            ['id' => 11, 'name' => 'آموزشی', 'emoji' => '🎓'],
-            ['id' => 12, 'name' => 'مذهبی', 'emoji' => '🙏'],
+            ['id' => 0, 'name' => 'آزاد', 'emoji' => '❓'],
+            ['id' => 1, 'name' => 'کسب-و-کار', 'emoji' => '💸'],
+            ['id' => 2, 'name' => 'سرگرمی', 'emoji' => '🎪'],
+            ['id' => 3, 'name' => 'ورزشی', 'emoji' => '⚽'],
+            ['id' => 4, 'name' => 'ادبیات', 'emoji' => '🎭'],
+            ['id' => 5, 'name' => 'هنری', 'emoji' => '🎨'],
+            ['id' => 6, 'name' => 'خبری', 'emoji' => '📡'],
+            ['id' => 7, 'name' => 'فیلم-موسیقی', 'emoji' => '🔊'],
+            ['id' => 8, 'name' => 'تصویر', 'emoji' => '📷'],
+            ['id' => 9, 'name' => 'علمی', 'emoji' => '🔭'],
+            ['id' => 10, 'name' => 'آموزشی', 'emoji' => '🎓'],
+            ['id' => 11, 'name' => 'مذهبی', 'emoji' => '🙏'],
 
 
         ]);
