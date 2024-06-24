@@ -1,7 +1,7 @@
 <?php
 
 //--------[Your Config]--------//
-
+namespace App\Http;
 
 class Helper
 {
