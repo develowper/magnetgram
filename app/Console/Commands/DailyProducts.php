@@ -2,13 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Chat;
-use App\Image;
-use App\Product;
-use App\Shop;
-use App\Tab;
-use App\User;
-use Helper;
+
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Image;
+use App\Models\Product;
+use App\Models\Shop;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
@@ -57,7 +56,7 @@ class DailyProducts extends Command
 				  $channel = Chat::where('chat_id', "$shop->channel_address")->where('active',true)->first();
                 if(!$channel)
                     continue;
-				
+
                 $sh = array('❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤎');
                 $tags = '';
 
@@ -70,7 +69,7 @@ class DailyProducts extends Command
                     if (strlen($tags) >= 150) break;
                 }
 
-                 
+
                 $tag = ($channel->tag) ?? "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL . $channel->chat_username;
 
                 $txt = "";

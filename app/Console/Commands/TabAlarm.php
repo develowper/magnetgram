@@ -2,12 +2,10 @@
 
 namespace App\Console\Commands;
 
-use App\Chat;
-use App\Divar;
-use App\Group;
-use App\Tab;
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Divar;
 use Carbon\Carbon;
-use Helper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;

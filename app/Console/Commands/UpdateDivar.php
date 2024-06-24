@@ -2,13 +2,13 @@
 
 namespace App\Console\Commands;
 
-use App\Chat;
-use App\Divar;
-use App\Follower;
-use App\Need;
-use App\Queue;
-use App\User;
-use Helper;
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Divar;
+use App\Models\Follower;
+use App\Models\Need;
+use App\Models\Queue;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 

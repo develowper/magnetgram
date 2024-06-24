@@ -2,12 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Chat;
-use App\Shop;
-use App\Tab;
-use App\User;
-use danog\MadelineProto\help;
-use Helper;
+
+use App\Http\Helper;
+use App\Models\Chat;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;

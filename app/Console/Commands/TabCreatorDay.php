@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Chat;
-use App\Divar;
-use App\Group;
-use App\Tab;
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Divar;
+use App\Models\Group;
+use App\Models\Tab;
 use Carbon\Carbon;
-use Helper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
@@ -113,7 +113,7 @@ class TabCreatorDay extends Command
 //💰کسب درآمد از بازاریابی محصولات💰
 //@dibadokhtonline";
 $adv.="🛍 بازارچه اینترنتی ورتا 🛍
-🎁 محصولات خودتو رایگان ثبت کن 🎁 
+🎁 محصولات خودتو رایگان ثبت کن 🎁
 @vartashopbot
 
         💙❤️ ثبت تبلیغات شما  ❤️💙

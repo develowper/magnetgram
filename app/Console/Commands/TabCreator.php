@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use App\Chat;
-use App\Divar;
-use App\Group;
-use App\Tab;
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Divar;
+use App\Models\Group;
+use App\Models\Tab;
 use Carbon\Carbon;
-use Helper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
@@ -104,7 +104,7 @@ class TabCreator extends Command
                 $txt .= "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
             }
 
-            $adv = "🟣🔵🟢🔴محل تبلیغ شما🔴🟢🔵🟣" . PHP_EOL . PHP_EOL ;// "🔵🟣تبلیغات ارزان با مگنت گرام🟣🔵";
+            $adv = "🟣🔵🟢🔴محل تبلیغ شما🔴🟢🔵🟣" . PHP_EOL . PHP_EOL;// "🔵🟣تبلیغات ارزان با مگنت گرام🟣🔵";
 //            $adv = "💄محصولات آرایشی و مراقبتی💄
 //👑با دیبادخت ، بهترینِ خودت باش👑
 //🛒💌ارسال به سراسر ایران💌🛒
@@ -112,8 +112,8 @@ class TabCreator extends Command
 //📺 instagram.com/diba_cosmetic72
 //💰کسب درآمد از بازاریابی محصولات💰
 //@dibadokhtonline";
-            $adv.="🛍 بازارچه اینترنتی ورتا 🛍
-🎁 محصولات خودتو رایگان ثبت کن 🎁 
+            $adv .= "🛍 بازارچه اینترنتی ورتا 🛍
+🎁 محصولات خودتو رایگان ثبت کن 🎁
 @vartashopbot
 
         💙❤️ ثبت تبلیغات شما  ❤️💙

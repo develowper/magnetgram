@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Tab;
-use App\User;
-use Helper;
+use App\Http\Helper;
+use App\Models\Tab;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 

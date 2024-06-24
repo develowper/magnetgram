@@ -2,11 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Divar;
-use App\Group;
-use App\Tab;
+use App\Http\Helper;
+use App\Models\Divar;
+use App\Models\Group;
+use App\Models\Tab;
 use Carbon\Carbon;
-use Helper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
