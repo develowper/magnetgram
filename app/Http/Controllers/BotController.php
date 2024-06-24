@@ -1542,7 +1542,7 @@ class BotController extends Controller
                 $txt .= "banner:<متن پیام>" . "\n";
                 $txt .= "ساخت متن با کلید شیشه ای" . "\n";
                 $txt .= "inline:<متن پیام>\nمتن1\nلینک1\n ..." . "\n";
-                $txt .= 'C:command:chat_username' . "\n" . 'commands=' . "\n" . "distag" . "\n" . "distab" . "\n" . "block" . "\n" . "unblock" . "\n" . "delete" . "\n" . "alarm";
+                $txt .= 'C:command:chat_username' . "\n" . 'commands=' . "\n" . "distag" . "\n" . "distab" . "\n" . "block" . "\n" . "unblock" . "\n" . "delete" . "\n" . "alarm" . "\n";
                 $txt .= "تبلیغ انتهای پیام ارسالی" . "\n";
                 $txt .= "banner=name=link" . "\n";
                 $this->sendMessage($chat_id, $txt, null, null, null);
