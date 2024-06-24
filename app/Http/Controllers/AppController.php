@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Chat;
-use App\Divar;
-use App\Follower;
-use App\Group;
-use App\Queue;
-use App\Ref;
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Divar;
+use App\Models\Follower;
+use App\Models\Group;
+use App\Models\Queue;
+use App\Models\Ref;
 use Carbon\Carbon;
-use Helper;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\AssignOp\Div;
 
@@ -525,17 +526,13 @@ class AppController extends Controller
     function creator($method, $datas = [])
     {
         $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN') . "/" . $method;
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $datas);
-        $res = curl_exec($ch);
 
-        if (curl_error($ch)) {
-            return (curl_error($ch));
-        } else {
-            return json_decode($res);
-        }
+        $res = Http::asForm()->post($url, $datas);
+        if ($res->status() != 200)
+            self::sendMessage(Helper::$logs[0], $res->body() . PHP_EOL . print_r($datas, true));
+        return json_decode($res->body());
+
+
     }
 
     private

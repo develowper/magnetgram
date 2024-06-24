@@ -3,27 +3,27 @@
 namespace App\Http\Controllers;
 
 
-use App\Chat;
-use App\Divar;
-use App\Follower;
-use App\Group;
-use App\Image;
-use App\InstaNeed;
-use App\Need;
-use App\Product;
-use App\Queue;
-use App\Ref;
-use App\Setting;
+use App\Models\Chat;
+use App\Models\Divar;
+use App\Models\Follower;
+use App\Models\Group;
+use App\Http\Helper;
+use App\Models\Image;
+use App\Models\InstaNeed;
+use App\Models\Need;
+use App\Models\Product;
+use App\Models\Queue;
+use App\Models\Ref;
+use App\Models\Setting;
 
 
-use App\Shop;
-use App\Tab;
-use App\User;
-use App\UserChat;
-use App\Waiting;
+use App\Models\Shop;
+use App\Models\Tab;
+use App\Models\User;
+use App\Models\UserChat;
+use App\Models\Waiting;
 use Carbon\Carbon;
 use DateTime;
-use Helper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;

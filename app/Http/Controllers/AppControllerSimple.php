@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Chat;
-use App\Divar;
-use App\Follower;
-use App\Queue;
-use App\Ref;
+use App\Http\Helper;
+use App\Models\Chat;
+use App\Models\Divar;
+use App\Models\Queue;
+use App\Models\Ref;
 use Carbon\Carbon;
-use Helper;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
