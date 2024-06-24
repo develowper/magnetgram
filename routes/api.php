@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\AppController;
+use App\Http\Controllers\BotController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('deletechat', [AppController::class, 'deleteChat']);
 
 });
-Route::post('/bot/getupdates', 'BotController@getupdates');
-Route::post('/bot/sendmessage', 'BotController@sendmessage');
-Route::get('/bot/getme', 'BotController@myInfo');
+Route::post('/bot/getupdates', [BotController::class, 'getupdates']);
+Route::post('/bot/sendmessage', [BotController::class, 'sendmessage']);
+Route::get('/bot/getme', [BotController::class, 'myInfo']);
