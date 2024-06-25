@@ -39,11 +39,11 @@ class Kernel extends ConsoleKernel
         foreach (['8:05', '00:01',] as $time) {
             $schedule->command('send:messagesdaily')->dailyAt($time);
         }
-        foreach ([/*'8:35'*/, '11:35', /*'14:35', '17:35', '20:35',*/ '23:35',] as $time) {
+        foreach (['11:35', /*'14:35', '17:35', '20:35',*/ '23:35',] as $time) {
             $schedule->command('send:productsdaily')->dailyAt($time);
         }
 
-        foreach ([/*'8:14', '11:14', '14:34',*/ '17:14',/* '20:14', '23:14', '03:14'*/,] as $time) {
+        foreach ([/*'8:14', '11:14', '14:34',*/ '17:14',/* '20:14', '23:14', '03:14'*/] as $time) {
             $schedule->command('send:randomdivar')->dailyAt($time);
         }
 
