@@ -53,7 +53,7 @@ class TabAlarm extends Command
         $divars = Divar::where('validated', true)->where('blocked', false)/*->whereIn('chat_username', ['perspoliswallpapers', 'esteghlalwallpapers'])*/
         ->get();
         if (count($divars) == 0) return; //all tabs   created and send
-//        Helper::sendMessage(Helper::$logs[0], "tab alarm " . count($divars), null);
+        Helper::sendMessage(Helper::$logs[0], "tab alarm " . count($divars), null);
 
 
         $txt = "" . PHP_EOL;
@@ -64,7 +64,9 @@ class TabAlarm extends Command
 
 
         foreach ($divars as $d) {
-            if (!Chat::where('chat_id', $d->chat_id)->where('auto_tab', true)->exists())
+            $txt .= "🌍 " . $d->chat_username . PHP_EOL;
+
+            if (!Chat::where('chat_id', "$d->chat_id")->where('auto_tab', true)->exists())
                 continue;
 //            $count = $this->getChatMembersCount("$d->chat_id");
 
