@@ -50,7 +50,7 @@ class TabAlarm extends Command
 
 //        $tabs = DB::table('queue')->whereNotNull('divar_to_tab')->get();
 
-        Divar::update(['blocked' => false]);
+        Divar::where('id', '!=', null)->update(['blocked' => false]);
         $divars = Divar::where('validated', true)->where('blocked', false)/*->whereIn('chat_username', ['perspoliswallpapers', 'esteghlalwallpapers'])*/
         ->get();
         if (count($divars) == 0) return; //all tabs   created and send
