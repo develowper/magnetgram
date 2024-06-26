@@ -19,8 +19,8 @@ use Inertia\Inertia;
 Route::get('/test', function () {
 
     $divars = \App\Models\Divar::get();
-    return $divars->first();
-    $count = Helper::getChatMembersCount();
+
+    return Helper::getChatMembersCount($divars->first()->chat_id);
 });
 Route::get('/', function () {
     return Inertia::render('Welcome', [
