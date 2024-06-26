@@ -85,7 +85,7 @@ class TabAlarm extends Command
         $txt .= "3⃣ فعال سازی تب اتوماتیک (مدیریت کانال ها📣->انتخاب کانال->تب اتوماتیک)" . PHP_EOL;
         $txt .= " ⛔️حذف ربات در بازه تبادل  = بلاک شدن کانال⛔️" . PHP_EOL;
         $txt .= "💫 ربات لینکدونی، فروشگاه و تبادل مگنت گرام 💫" . PHP_EOL . Helper::$bot . PHP_EOL;
-        return $txt;
+        echo $txt;
         Helper::sendMessage(Helper::$divarChannel, $txt, null);
 //        Divar::query()->update(['processed' => false]);
     }
