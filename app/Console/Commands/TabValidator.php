@@ -71,8 +71,6 @@ class TabValidator extends Command
             }
             $d->processed = true;
             $d->save();
-            if (!$d->validated)
-                $d->delete();
         }
 //        Helper::sendMessage(Helper::$logs[0], "tab validate finished" . count($divars), null, null, null, true);
 
