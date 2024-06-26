@@ -304,21 +304,21 @@ class Helper
     }
 
     static
-    function getChatMembersCount($chat_id)
+    function getChatMembersCount($chat_id, $chat_username)
     {
-        $res = Helper::creator('getChatMembersCount', ['chat_id' => $chat_id,]);
+
+        $res = Helper::creator('getChatMembersCount', ['chat_id' => $chat_id, 'chat_username' => "$chat_username",]);
         if (isset($res) && $res->ok == true)
             return (int)$res->result; else return 0;
     }
 
     static
-    function botIsAdminAndHasPrivileges($chat_id, $chat_username)
+    function botIsAdminAndHasPrivileges($chat_id)
     {
 
 
         $res = Helper::creator('getChatMember', [
             'chat_id' => "$chat_id",
-            'chat_username' => "$chat_username",
             'user_id' => Helper::$bot_id
         ]);
 //        Helper::sendMessage(Helper::$logs[0], json_encode($res), null);
