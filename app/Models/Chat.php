@@ -16,7 +16,7 @@ class Chat extends Model
         'chat_main_color', 'chat_title', 'chat_description', 'active', 'auto_tag', 'auto_tab', 'auto_tab_day', 'auto_msg_day', 'auto_msg_night', 'auto_fun', 'tag'
     ];
     protected $casts = [
-        // 'chat_id' => 'string',
+        'chat_id' => 'string',
         //'expire_time' => 'timestamp',
 
     ];

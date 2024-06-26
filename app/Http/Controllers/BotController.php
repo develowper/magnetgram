@@ -264,6 +264,7 @@ class BotController extends Controller
                 [['text' => "لغو ارسال⬅", 'callback_data' => "send_cancel"]],
             ], 'resize_keyboard' => true]);
 
+
             if (preg_match('/^\/(start)$/i', $text)) {
 
                 if (!$this->user) $this->sendMessage($chat_id, "■ سلام $first_name خوش آمدید\n\n■ برای ثبت کانال/گروه خود ابتدا در ربات ثبت نام کنید :" . " پشتیبانی: " . Helper::$admin, null, $message_id, $button);

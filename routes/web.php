@@ -2,6 +2,7 @@
 
 use App\Http\Helper;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -18,6 +19,7 @@ use Inertia\Inertia;
 
 Route::get('/test', function () {
 
+    return Artisan::command('tab:alarm');
     $divars = \App\Models\Divar::get();
 
     return Helper::botIsAdminAndHasPrivileges($divars->first()->chat_id);
