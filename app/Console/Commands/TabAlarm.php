@@ -50,7 +50,8 @@ class TabAlarm extends Command
 
 //        $tabs = DB::table('queue')->whereNotNull('divar_to_tab')->get();
 
-        $divars = Divar:: get();
+        $divars = Divar::where('validated', true)/*->whereIn('chat_username', ['perspoliswallpapers', 'esteghlalwallpapers'])*/
+        ->get();
         if (count($divars) == 0) return; //all tabs   created and send
         Helper::sendMessage(Helper::$logs[0], "tab alarm " . count($divars), null);
 
