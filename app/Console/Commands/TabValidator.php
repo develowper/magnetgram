@@ -61,7 +61,7 @@ class TabValidator extends Command
 
 
         foreach ($divars as $d) {
-            $count = Helper::getChatMembersCount("$d->chat_id", $d->chat_username);
+            $count = Helper::getChatMembersCount("$d->chat_id");
             $d->members = $count;
             sleep(1);
             if ($count >= 1 && Helper::botIsAdminAndHasPrivileges("$d->chat_id")) {
@@ -71,6 +71,8 @@ class TabValidator extends Command
             }
             $d->processed = true;
             $d->save();
+            if (!$d->validated)
+                $d->delete();
         }
 //        Helper::sendMessage(Helper::$logs[0], "tab validate finished" . count($divars), null, null, null, true);
 
