@@ -64,6 +64,7 @@ class TabAlarm extends Command
 
 
         foreach ($divars as $d) {
+            $txt .= "🌍 " . $d->chat_username . PHP_EOL;
             if (!Chat::where('chat_id', "$d->chat_id")->where('auto_tab', true)->exists())
                 continue;
 //            $count = $this->getChatMembersCount("$d->chat_id");
@@ -86,7 +87,7 @@ class TabAlarm extends Command
         $txt .= " ⛔️حذف ربات در بازه تبادل  = بلاک شدن کانال⛔️" . PHP_EOL;
         $txt .= "💫 ربات لینکدونی، فروشگاه و تبادل مگنت گرام 💫" . PHP_EOL . Helper::$bot . PHP_EOL;
         echo $txt;
-        Helper::sendMessage(Helper::$divarChannel, $txt, null);
+//        Helper::sendMessage(Helper::$divarChannel, $txt, null);
 //        Divar::query()->update(['processed' => false]);
     }
 
