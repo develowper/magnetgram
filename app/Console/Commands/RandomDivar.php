@@ -52,7 +52,7 @@ class RandomDivar extends Command
             $divar = Divar::where('chat_id', $chat->chat_id)->first();
 
             $info = $this->getChatInfo($chat->chat_id);
-            if ($info == null || !isset($info->username ) ||  $info->username == null) {
+            if ($info == null || !isset($info->username) || $info->username == null) {
                 Helper::sendMessage(Helper::$admin, "کانال شما:" . " $chat->chat_username " . PHP_EOL . "برنده قرعه کشی ثبت در دیوار شد ولی ربات کانال شما را پیدا نکرد. لطفا ربات را در کانال خود قرار داده و اطلاعات کانال را بروزرسانی کنید و یا این پیام را نادیده بگیرید.", null);
                 Helper::sendMessage($user->telegram_id, "کانال شما:" . " $chat->chat_username " . PHP_EOL . "برنده قرعه کشی ثبت در دیوار شد ولی ربات کانال شما را پیدا نکرد. لطفا ربات را در کانال خود قرار داده و اطلاعات کانال را بروزرسانی کنید و یا این پیام را نادیده بگیرید.", null);
                 $chat->delete();
@@ -133,9 +133,11 @@ class RandomDivar extends Command
             $txt = "🎉🎀🎊" . " تبریک! " . PHP_EOL . "کانال شما در دیوار قرار گرفت و جایزه عضویت آن از طرف مگنت گرام است!" . PHP_EOL . "لطفا ربات را حتما در کانال خود قرار دهید" . PHP_EOL . " پشتیبانی " . Helper::$admin;
 
 
-            Helper::sendMessage($user->telegram_id, $txt, null);
-            $message = Helper::sendPhoto(Helper::$divarChannel, asset("https://qr-image-creator.com/magnetgram_en/storage/chats/$chat->image.jpg"), Helper::MarkDown($caption), null, $cell_button);
-            $message = Helper::sendPhoto('@lamassaba', asset("https://qr-image-creator.com/magnetgram_en/storage/chats/$chat->image.jpg"), Helper::MarkDown($caption), null, $cell_button);
+            $res = Helper::sendMessage($user->telegram_id, $txt, null);
+//            if ($res && $res->ok == false)
+
+            $message = Helper::sendPhoto(Helper::$divarChannel, asset("https://qr-image-creator.com/magnetgram/storage/chats/$chat->image.jpg"), Helper::MarkDown($caption), null, $cell_button);
+            $message = Helper::sendPhoto('@lamassaba', asset("https://qr-image-creator.com/magnetgram/storage/chats/$chat->image.jpg"), Helper::MarkDown($caption), null, $cell_button);
 
             break;
         }

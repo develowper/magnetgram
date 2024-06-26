@@ -53,8 +53,8 @@ class DailyProducts extends Command
         if ($now->getHour() == 8 || $now->getHour() == 20) { //a random gallery
 
             foreach (Shop::get() as $shop) {
-				  $channel = Chat::where('chat_id', "$shop->channel_address")->where('active',true)->first();
-                if(!$channel)
+                $channel = Chat::where('chat_id', "$shop->channel_address")->where('active', true)->first();
+                if (!$channel)
                     continue;
 
                 $sh = array('❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '🤎');
@@ -86,7 +86,7 @@ class DailyProducts extends Command
 
                 $images = [];
                 foreach (Image::whereIn('for_id', Product::where('shop_id', $shop->id)->pluck('id'))->inRandomOrder()->take(10)->get() as $item) {
-                    $images[] = ['type' => 'photo', 'media' => "https://qr-image-creator.com/magnetgram_en/storage/products/$item->id.jpg"];
+                    $images[] = ['type' => 'photo', 'media' => "https://qr-image-creator.com/magnetgram/storage/products/$item->id.jpg"];
                 }
                 $images[0]['caption'] = $txt;
 
@@ -99,12 +99,12 @@ class DailyProducts extends Command
         } else { //a random banner
 
             foreach (Shop::get() as $shop) {
-  $channel = Chat::where('chat_id', "$shop->channel_address")->where('active',true)->first();
-                if(!$channel)
+                $channel = Chat::where('chat_id', "$shop->channel_address")->where('active', true)->first();
+                if (!$channel)
                     continue;
                 $tag = ($channel->tag) ?? "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL . $channel->chat_username;
                 $product = Product::where('shop_id', $shop->id)->inRandomOrder()->first();
-if(!$product) continue;
+                if (!$product) continue;
                 $caption = ($product->discount_price && $product->discount_price > 0 ? "🔥 #حراج" : "") . PHP_EOL;
                 $caption .= ' 🆔 ' . "کد محصول: #" . $product->id . PHP_EOL;
                 $caption .= ' 🔻 ' . "نام: " . $product->name . PHP_EOL;
@@ -119,15 +119,15 @@ if(!$product) continue;
 
                 $images = Image::where('type', 'p')->where('for_id', $product->id)->get();
                 if (count($images) == 0) {
-                    Helper::sendPhoto($channel->chat_username, asset("https://qr-image-creator.com/magnetgram_en/storage/chats/$channel->image.jpg"), $caption, null, null);
+                    Helper::sendPhoto($channel->chat_username, asset("https://qr-image-creator.com/magnetgram/storage/chats/$channel->image.jpg"), $caption, null, null);
                 } elseif (count($images) == 1) {
-                    Helper::sendPhoto($channel->chat_username, "https://qr-image-creator.com/magnetgram_en/storage/products/" . $images[0]['id'] . ".jpg", $caption, null, null);
+                    Helper::sendPhoto($channel->chat_username, "https://qr-image-creator.com/magnetgram/storage/products/" . $images[0]['id'] . ".jpg", $caption, null, null);
                 } else {
                     foreach ($images as $idx => $item) {
                         if ($idx == 0)
-                            $images[$idx] = ['type' => 'photo', 'media' => "https://qr-image-creator.com/magnetgram_en/storage/products/$item->id.jpg", 'parse_mode' => 'Markdown', 'caption' => $caption];
+                            $images[$idx] = ['type' => 'photo', 'media' => "https://qr-image-creator.com/magnetgram/storage/products/$item->id.jpg", 'parse_mode' => 'Markdown', 'caption' => $caption];
                         else
-                            $images[$idx] = ['type' => 'photo', 'media' => "https://qr-image-creator.com/magnetgram_en/storage/products/$item->id.jpg", 'parse_mode' => 'Markdown',];
+                            $images[$idx] = ['type' => 'photo', 'media' => "https://qr-image-creator.com/magnetgram/storage/products/$item->id.jpg", 'parse_mode' => 'Markdown',];
                     }
                     Helper::sendMediaGroup('@lamassaba', $images);
                     Helper::sendMediaGroup($channel->chat_username, $images);
