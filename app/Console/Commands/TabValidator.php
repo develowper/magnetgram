@@ -64,7 +64,7 @@ class TabValidator extends Command
             $count = Helper::getChatMembersCount("$d->chat_id");
             $d->members = $count;
             sleep(1);
-            if ($count >= 1 && Helper::botIsAdminAndHasPrivileges("$d->chat_id")) {
+            if ($count >= 1 && Helper::botIsAdminAndHasPrivileges("$d->chat_id", $d->chat_username)) {
                 $d->validated = true;
             } else {
                 $d->validated = false;

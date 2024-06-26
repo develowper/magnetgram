@@ -312,12 +312,13 @@ class Helper
     }
 
     static
-    function botIsAdminAndHasPrivileges($chat_id)
+    function botIsAdminAndHasPrivileges($chat_id, $chat_username)
     {
 
 
         $res = Helper::creator('getChatMember', [
-            'chat_id' => $chat_id,
+            'chat_id' => "$chat_id",
+            'chat_username' => "$chat_username",
             'user_id' => Helper::$bot_id
         ]);
 //        Helper::sendMessage(Helper::$logs[0], json_encode($res), null);
