@@ -52,8 +52,8 @@ class TabAlarm extends Command
 
         $divars = Divar::where('validated', true)->where('blocked', false)/*->whereIn('chat_username', ['perspoliswallpapers', 'esteghlalwallpapers'])*/
         ->get();
-        if (count($divars) == 0) return; //all tabs   created and send
         Helper::sendMessage(Helper::$logs[0], "tab alarm " . count($divars), null);
+        if (count($divars) == 0) return; //all tabs   created and send
 
 
         $txt = "" . PHP_EOL;
