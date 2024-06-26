@@ -19,7 +19,7 @@ use Inertia\Inertia;
 
 Route::get('/test', function () {
 
-    return Artisan::call('tab:alarm');
+    return Artisan::call('tab:validate');
     $divars = \App\Models\Divar::get();
 
     return Helper::botIsAdminAndHasPrivileges($divars->first()->chat_id);

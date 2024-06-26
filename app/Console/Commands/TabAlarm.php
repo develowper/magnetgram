@@ -50,11 +50,10 @@ class TabAlarm extends Command
 
 //        $tabs = DB::table('queue')->whereNotNull('divar_to_tab')->get();
 
-        Divar::where('id', '!=', null)->update(['blocked' => false]);
         $divars = Divar::where('validated', true)->where('blocked', false)/*->whereIn('chat_username', ['perspoliswallpapers', 'esteghlalwallpapers'])*/
         ->get();
         if (count($divars) == 0) return; //all tabs   created and send
-        Helper::sendMessage(Helper::$logs[0], "tab alarm " . count($divars), null);
+//        Helper::sendMessage(Helper::$logs[0], "tab alarm " . count($divars), null);
 
 
         $txt = "" . PHP_EOL;
@@ -86,8 +85,7 @@ class TabAlarm extends Command
         $txt .= "3⃣ فعال سازی تب اتوماتیک (مدیریت کانال ها📣->انتخاب کانال->تب اتوماتیک)" . PHP_EOL;
         $txt .= " ⛔️حذف ربات در بازه تبادل  = بلاک شدن کانال⛔️" . PHP_EOL;
         $txt .= "💫 ربات لینکدونی، فروشگاه و تبادل مگنت گرام 💫" . PHP_EOL . Helper::$bot . PHP_EOL;
-        echo $txt;
-//        Helper::sendMessage(Helper::$divarChannel, $txt, null);
+        Helper::sendMessage(Helper::$divarChannel, $txt, null);
 //        Divar::query()->update(['processed' => false]);
     }
 
