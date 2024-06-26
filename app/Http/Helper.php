@@ -304,10 +304,10 @@ class Helper
     }
 
     static
-    function getChatMembersCount($chat_id, $chat_username)
+    function getChatMembersCount($chat_id)
     {
 
-        $res = Helper::creator('getChatMembersCount', ['chat_id' => $chat_id, 'chat_username' => "$chat_username",]);
+        $res = Helper::creator('getChatMembersCount', ['chat_id' => $chat_id]);
         if (isset($res) && $res->ok == true)
             return (int)$res->result; else return 0;
     }
