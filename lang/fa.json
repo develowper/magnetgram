@@ -526,6 +526,8 @@
     "result": "نتیجه",
     "operator_not_found": "اپراتور یافت نشد",
     "user_phone_not_found": "کاربری با این شماره تماس یافت نشد",
+    "*_not_found": "%s یافت نشد",
+    "*_deactivated": "%s غیر فعال است",
     "select_items_need_in_article": "موارد مورد نیاز در مقاله را انتخاب کنید",
     "article_title": "عنوان مقاله",
     "article_items": "آیتم های مقاله",
@@ -942,5 +944,6 @@
     "all_districts": "همه مناطق",
     "payed_successfully": "پرداخت با موفقیت انجام شد",
     "*_will_change_to_*": "%s به %s تغییر خواهد کرد",
+    "welcome": "خوش آمدید",
     "": ""
 }

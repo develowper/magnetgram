@@ -346,26 +346,25 @@ class UserController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'username' => 'required|min:3|max:50|regex:/^[A-Za-z]+[A-Za-z0-9_][A-Za-z0-9]{1,50}$/',
-
+            'password' => 'required'
         ], [
             'username.required' => sprintf(__("validator.required"), __('username')),
             'username.regex' => sprintf(__("validator.username")),
-            'username.max' => sprintf(__("validator.max_len"), __('username'), 11),
-            'username.min' => 'طول نام کاربری حداقل 3 باشد',
-            'username.max' => 'طول نام کاربری حداکثر 50 باشد',
+            'username.max' => sprintf(__("validator.max_len"), __('username'), 50),
+            'username.min' => sprintf(__("validator.min_len"), __('username'), 50),
+            'password.required' => sprintf(__("validator.required"), __('password')),
+
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 'error', 'message' => $validator->errors()->first()], 200);
         }
 
-        $user = User::where('phone', $request->phone)->first();
+        $user = User::where('username', $request->username)->first();
         if (!$user)
-            return response()->json(['status' => 'error', 'message' => 'کاربر یافت نشد'], 200);
-        if (!$user->is_active)
-            return response()->json(['status' => 'error', 'message' => 'کاربر غیر فعال شده است'], 200);
+            return response()->json(['status' => 'error', 'message' => sprintf(__('*_not_found'), __('user'))], 200);
+        if (!$user->active)
+            return response()->json(['status' => 'error', 'message' => sprintf(__('*_deactivated'), __('user'))], 200);
 
-
-        $user_sms = DB::table('sms_verify')->where('phone', $request->phone);
         if (password_verify($request->password, $user->password)) {
             $user->tokens()->delete();
             if ($request->push_id)
@@ -373,11 +372,10 @@ class UserController extends Controller
             $user->save();
             $user->token = $user->createToken($user->id, ['user'])->plainTextToken;
             $user->status = 'success';
-            $user->message = 'خوش آمدید';
-            $user_sms->delete();
+            $user->message = __('welcome');
             return $user;
         }
-        return response()->json(['status' => 'error', 'message' => 'رمز عبور نامعتبر است'], 200);
+        return response()->json(['status' => 'error', 'message' => sprintf(__('validator.invalid'), __('password'))], 200);
 
 
     }
