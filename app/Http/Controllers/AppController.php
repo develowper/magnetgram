@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Adv;
 use App\Http\Helper;
 use App\Models\Chat;
 use App\Models\Divar;
@@ -53,7 +54,88 @@ class AppController extends Controller
         return ['divar_scores' => Helper::$divar_scores, 'vip_score' => Helper::$vip_score,
             'add_score' => Helper::$add_score, 'follow_score' => Helper::$follow_score,
             'install_chat_score' => Helper::$install_chat_score, 'see_video_score' => Helper::$see_video_score,
-            'ref_score' => Helper::$ref_score, 'groups' => Group::select('id', 'name')->get()];
+            'ref_score' => Helper::$ref_score, 'groups' => Group::select('id', 'name')->get(),
+            'keys' => [
+                'bazaar' => env('BAZAAR_RSA'),
+                'myket' => env('MYKET_RSA'),
+            ],
+            'adv' => [
+                'type' => [
+                    'standard' => 'admob',//
+                    'native' => null, // varta admob tapsell
+                    'rewarded' => 'admob',
+                    'interstitial' => 'admob',
+                ],
+                'keys' => [
+                    'tapsell' => [
+                        'key' => 'agojnbhlrhdqhgbaomesktqtaihaarrjnmclmsnnhpcerfsmgathastqcrkicimdgirgit',
+                        'standard' => '64625b3c070a01463f7ccce9',
+                        'native' => '64625b52b58411591be308f2',
+                        'rewarded' => '5f68a794196a930001020578',
+                        'interstitial' => '64625b6e234bc24583773c2a',
+                    ],
+                    'adivery' => [
+                        'key' => '8576233c-52ab-4d8b-8cf0-ad7cb4d4c980',
+                        'standard' => 'bda88402-8b6f-47ea-aa94-1af4be57719e',
+                        'native' => '8d8d6297-551a-4aa6-8176-dc0524867e74',
+                        'rewarded' => '13a12b06-bfa6-447b-8dd8-c704cdef8bec',
+                        'interstitial' => '8aefccd9-4792-463e-995b-5747ef562044',
+                        'open' => 'cda48f29-d0bc-4c94-bb5b-8186d58ad1f1',
+                    ],
+
+                    'admob' => [
+                        'key' => 'ca-app-pub-4161485899394281~4978799940',
+                        'standard' => 'ca-app-pub-4161485899394281/6718901800',
+                        'native' => 'ca-app-pub-4161485899394281/5645493288',
+                        'rewarded' => 'ca-app-pub-4161485899394281/9120676197',
+                        'interstitial' => 'ca-app-pub-4161485899394281/2480273898',
+                        'open' => 'ca-app-pub-4161485899394281/8640995396',
+                    ]
+
+
+                ],
+                'data' => [],
+
+
+            ],
+            'payment' => null,
+            'hides' => [],
+
+            'products' => Helper::PRODUCTS,
+            'app_info' => [
+                'version' => Helper::APP_VERSION,
+
+                'links' => [
+                    'app' => '',
+                    'comments' => '',
+                    'aparat' => 'https://www.aparat.com/vartastudio',
+                    'site' => 'https://zil.ink/varta',
+                    'telegram' => 'https://t.me/develowper',
+                    'telegram_bot' => 'https://t.me/magnetgrambot',
+                    'instagram' => 'https://instagram.com/develowper',
+                    'eitaa' => 'https://eitaa.com/develowper',
+                    'email' => 'moj2raj2@gmail.com',
+                    'market' => [
+                        'bazaar' => Helper::$market_link['bazaar'],
+                        'myket' => Helper::$market_link['myket'],
+                        'playstore' => Helper::$market_link['playstore'],
+                        'bank' => Helper::$market_link['playstore'],
+                    ]
+                ],
+                'questions' => [
+                    [
+                        'q' => 'کیف پول شارژ نمی شود',
+                        'a' => 'به دلیل اختلال در سیستم بانکی ممکن است خرید شما با تاخیر انجام شود. لطفا پس از چند دقیقه بر روی دکمه "بروز رسانی" کیف پول که در قسمت "پروفایل" در کنار عدد کیف پول است بزنید تا بروز رسانی شود',
+                    ],
+                ],
+
+            ],
+            'marketing' => [
+
+            ],
+
+        ];
+
     }
 
     protected function getDivar(Request $request)
