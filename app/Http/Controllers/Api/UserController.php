@@ -370,7 +370,7 @@ class UserController extends Controller
             if ($request->push_id)
                 $user->push_id = $request->push_id;
             $user->save();
-            $user->token = $user->createToken($user->id, ['user'])->plainTextToken;
+            $user->access_token = $user->createToken($user->id, ['user'])->plainTextToken;
             $user->status = 'success';
             $user->message = __('welcome');
             return $user;
