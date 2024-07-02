@@ -344,6 +344,7 @@ class UserController extends Controller
     public
     function login(Request $request)
     {
+        $request->username = '@' . str_replace('@', '', $request->username);
         $validator = Validator::make($request->all(), [
             'username' => 'required|min:3|max:50|regex:/^[A-Za-z]+[A-Za-z0-9_][A-Za-z0-9]{1,50}$/',
             'password' => 'required'
