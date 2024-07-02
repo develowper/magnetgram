@@ -365,7 +365,7 @@ class UserController extends Controller
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_not_found'), __('user'))], 200);
         if (!$user->active)
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_deactivated'), __('user'))], 200);
-
+        $user->makeVisible(['password']);
         if (password_verify($request->password, $user->password)) {
             $user->tokens()->delete();
             if ($request->push_id)
@@ -376,7 +376,7 @@ class UserController extends Controller
             $user->message = __('welcome');
             return $user;
         }
-        return response()->json(['status' => 'error', 'message' => $user->password], 200);
+        return response()->json(['status' => 'error', 'message' => sprintf(__('validator.invalid'), __('password'))], 200);
 
 
     }
