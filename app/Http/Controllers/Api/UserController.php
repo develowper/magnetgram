@@ -376,7 +376,7 @@ class UserController extends Controller
             $user->message = __('welcome');
             return $user;
         }
-        return response()->json(['status' => 'error', 'message' => $request->password ."\n". $user->password], 200);
+        return response()->json(['status' => 'error', 'message' => $user->password], 200);
 
 
     }
