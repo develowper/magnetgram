@@ -37,3 +37,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::post('/bot/getupdates', [BotController::class, 'getupdates']);
 Route::post('/bot/sendmessage', [BotController::class, 'sendmessage']);
 Route::get('/bot/getme', [BotController::class, 'myInfo']);
+
+
+Route::middleware('throttle:sms_limit')->group(function () {
+    Route::post('senderror', [APIController::class, 'sendError']);
+    Route::post('login', [APIController::class, 'login']);
+
+});

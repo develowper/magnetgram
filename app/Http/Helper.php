@@ -534,5 +534,15 @@ if (!function_exists('validate_base64')) {
     }
 
 }
+function encrypt($str)
+{
+    return openssl_encrypt(
+        $str,
+        'AES-256-CBC',
+        substr(env('API_KEY'), -32),
+        0,
+        substr(env('API_KEY'), -16),
+    );
+}
 
 
