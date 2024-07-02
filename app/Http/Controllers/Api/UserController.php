@@ -352,7 +352,7 @@ class UserController extends Controller
             'telegram_username.required' => sprintf(__("validator.required"), __('username')),
             'telegram_username.regex' => sprintf(__("validator.username")),
             'telegram_username.max' => sprintf(__("validator.max_len"), __('username'), 50, strlen($request->username)),
-            'telegram_username.min' => sprintf(__("validator.min_len"), __('username'), 50),
+            'telegram_username.min' => sprintf(__("validator.min_len"), __('username'), 50, strlen($request->username)),
             'password.required' => sprintf(__("validator.required"), __('password')),
 
         ]);
