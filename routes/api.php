@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\BotController;
@@ -41,6 +42,6 @@ Route::get('/bot/getme', [BotController::class, 'myInfo']);
 
 Route::middleware('throttle:sms_limit')->group(function () {
     Route::post('senderror', [APIController::class, 'sendError']);
-    Route::post('login', [APIController::class, 'login']);
+    Route::post('login', [UserController::class, 'login']);
 
 });
