@@ -366,7 +366,7 @@ class UserController extends Controller
         if (!$user->active)
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_deactivated'), __('user'))], 200);
         $user->makeVisible(['password']);
-        dd($user);
+        return $user;
         if (password_verify($request->password, $user->password)) {
             $user->tokens()->delete();
             if ($request->push_id)
