@@ -22,7 +22,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('addtodivar', [AppController::class, 'addToDivar']);
     Route::get('getsettings', [AppController::class, 'getSettings']);
     Route::get('getdivar', [AppController::class, 'getDivar']);
-    Route::get('getuser', [AppController::class, 'getUser']);
+    Route::get('user/info', [AppController::class, 'getUser']);
     Route::post('logout', [APIController::class, 'logout']);
     Route::post('checkuserjoined', [AppController::class, 'checkuserJoined']);
     Route::post('viewchat', [AppController::class, 'viewChat']);
