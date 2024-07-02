@@ -348,7 +348,9 @@ class AppController extends Controller
 //        elseif (in_array(auth()->user()->telegram_id, Helper::$Dev))
 //            return User::whereIn('id', $request->ids)->get();
 
-        return $request->user();
+        $user = $request->user();
+        $user->status = 'success';
+        return $user;
 
     }
 
