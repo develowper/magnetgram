@@ -346,21 +346,21 @@ class UserController extends Controller
     {
         $request->username = '@' . str_replace('@', '', $request->username);
         $validator = Validator::make($request->all(), [
-            'username' => 'required|min:3|max:50|regex:/^[A-Za-z]+[A-Za-z0-9_][A-Za-z0-9]{1,50}$/',
+            'telegram_username' => 'required|min:3|max:50|regex:/^[A-Za-z]+[A-Za-z0-9_][A-Za-z0-9]{1,50}$/',
             'password' => 'required'
         ], [
-            'username.required' => sprintf(__("validator.required"), __('username')),
-            'username.regex' => sprintf(__("validator.username")),
-            'username.max' => sprintf(__("validator.max_len"), __('username'), 50),
-            'username.min' => sprintf(__("validator.min_len"), __('username'), 50),
-            'password.required' => sprintf(__("validator.required"), __('password')),
+            'telegram_username.required' => sprintf(__("validator.required"), __('username')),
+            'telegram_username.regex' => sprintf(__("validator.username")),
+            'telegram_username.max' => sprintf(__("validator.max_len"), __('username'), 50),
+            'telegram_username.min' => sprintf(__("validator.min_len"), __('username'), 50),
+            'telegram_username.required' => sprintf(__("validator.required"), __('password')),
 
         ]);
         if ($validator->fails()) {
             return response()->json(['status' => 'error', 'message' => $validator->errors()->first()], 200);
         }
 
-        $user = User::where('username', $request->username)->first();
+        $user = User::where('telegram_username', $request->username)->first();
         if (!$user)
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_not_found'), __('user'))], 200);
         if (!$user->active)
