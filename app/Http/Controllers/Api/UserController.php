@@ -344,7 +344,7 @@ class UserController extends Controller
     public
     function login(Request $request)
     {
-        $request->username = '@' . str_replace('@', '', $request->username);
+        $request->username = '@' . str_replace('@', '', $request->telegram_username);
         $validator = Validator::make($request->all(), [
             'telegram_username' => 'required|min:3|max:50|regex:/^[A-Za-z]+[A-Za-z0-9_][A-Za-z0-9]{1,50}$/',
             'password' => 'required'
@@ -365,8 +365,6 @@ class UserController extends Controller
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_not_found'), __('user'))], 200);
         if (!$user->active)
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_deactivated'), __('user'))], 200);
-        $user->makeVisible(['password']);
-        return $user;
         if (password_verify($request->password, $user->password)) {
             $user->tokens()->delete();
             if ($request->push_id)
