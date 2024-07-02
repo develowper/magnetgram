@@ -131,6 +131,8 @@ class AppController extends Controller
 
             ],
             'marketing' => [
+                'title' => '',
+                'ref_message' => '',
 
             ],
 
