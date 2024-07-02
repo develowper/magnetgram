@@ -366,7 +366,7 @@ class UserController extends Controller
         if (!$user->active)
             return response()->json(['status' => 'error', 'message' => sprintf(__('*_deactivated'), __('user'))], 200);
         $user->makeVisible(['password']);
-        if (auth()->attempt($request->only('username', 'password'))) {
+        if (auth()->attempt($request->only('telegram_username', 'password'))) {
             $user->tokens()->delete();
             if ($request->push_id)
                 $user->push_id = $request->push_id;
