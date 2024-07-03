@@ -155,8 +155,8 @@ class AppController extends Controller
         if ($name)
             $query = $query->where('name', 'like', $name . '%');
 
-        $query = $query->orderby('is_vip', 'DESC')->orderby($sortBy, $direction)->
-        select(['id', 'user_id', 'chat_id', 'chat_username', 'chat_type', 'chat_title', 'chat_description', 'chat_main_color', 'is_vip', 'expire_time']);
+        $query = $query->orderby('is_vip', 'DESC')->orderby($sortBy, $direction);
+//            ->        select(['id', 'user_id', 'chat_id', 'chat_username', 'chat_type', 'chat_title', 'chat_description', 'chat_main_color', 'is_vip', 'expire_time']);
 
         return tap($query->paginate($paginate, ['*'], 'page', $page), function ($paginated) use ($user) {
             $following = Follower::where('telegram_id', $user->telegram_id)->where('left', false)->whereIn('chat_id', $paginated->getCollection()->pluck('chat_id'))->get();
