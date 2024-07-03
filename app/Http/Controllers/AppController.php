@@ -149,23 +149,32 @@ class AppController extends Controller
         $sortBy = $request->sortBy ?? 'expire_time';
         $direction = $request->direction ?? 'DESC';
         $query = Divar::query();
-
+        $user = $request->user();
         if ($group_id)
             $query = $query->where('group_id', $group_id);
         if ($name)
             $query = $query->where('name', 'like', $name . '%');
 
-        $divars = $query->orderby('is_vip', 'DESC')->orderby($sortBy, $direction)->
-        select(['id', 'user_id', 'chat_id', 'chat_username', 'chat_type', 'chat_title', 'chat_description', 'chat_main_color', 'is_vip', 'expire_time'])
-            ->paginate($paginate, ['*'], 'page', $page);
+        $query = $query->orderby('is_vip', 'DESC')->orderby($sortBy, $direction)->
+        select(['id', 'user_id', 'chat_id', 'chat_username', 'chat_type', 'chat_title', 'chat_description', 'chat_main_color', 'is_vip', 'expire_time']);
 
+        return tap($query->paginate($paginate, ['*'], 'page', $page), function ($paginated) use ($user) {
+            $following = Follower::where('telegram_id', $user->telegram_id)->where('left', false)->whereIn('chat_id', $paginated->getCollection()->pluck('chat_id'))->get();
+            return $paginated->getCollection()->transform(
+                function ($item) use ($following) {
+                    if ($following::where('chat_id', $item->chat_id)->exists())
+                        $item->role = 'member';
+                    return $item;
+                }
+            );
+        });
 
         foreach ($divars as $d) {
             // $info = $this->getChatInfo(['chat_id' => "$d->chat_id"]);
 
 //             $role = $this->getUserInChat(['chat_id' => $d->chat_id, 'user_id' => auth()->user()->telegram_id,]);
 //             $role = $role ? isset($role->result) ? isset($role->result->status) ? $role->result->status : null : null : null;
-            if (Follower::where('chat_id', $d->chat_id)->where('telegram_id', auth()->user()->telegram_id)->where('left', false)->exists())
+            if (Follower::where('chat_id', $d->chat_id)->where('telegram_id', $user->telegram_id)->where('left', false)->exists())
                 $d->role = 'member';
         }
         return $divars;
