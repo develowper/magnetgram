@@ -161,6 +161,7 @@ class AppController extends Controller
         return tap($query->paginate($paginate, ['*'], 'page', $page), function ($paginated) use ($user) {
             $following = Follower::where('telegram_id', $user->telegram_id)->where('left', false)->whereIn('chat_id', $paginated->getCollection()->pluck('chat_id'))->get();
             return $paginated->getCollection()->transform(
+
                 function ($item) use ($following) {
                     if ($following::where('chat_id', $item->chat_id)->exists())
                         $item->role = 'member';
