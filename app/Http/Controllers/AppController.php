@@ -163,7 +163,7 @@ class AppController extends Controller
             return $paginated->getCollection()->transform(
 
                 function ($item) use ($following) {
-                    if ($following->where('chat_id', $item->chat_id)->exists())
+                    if ($following->where('chat_id', $item->chat_id)->first())
                         $item->role = 'member';
                     return $item;
                 }
