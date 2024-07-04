@@ -478,7 +478,7 @@ class AppController extends Controller
         $chat_id = $request->chat_id;
         $chat_username = $request->chat_username;
         $last_score = $request->last_score;
-        $isChannel = $request->chat_type == 'channel' ? true : false;
+        $isChannel = $request->chat_type == 'c' ? true : false;
         $user = $request->user();
         if (!Divar::where('chat_id', $chat_id)->where('expire_time', '>=', Carbon::now())->exists()) {
             return response()->json(['status' => 'danger', 'message' => "TIMEOUT_CHAT"], 200);
@@ -490,7 +490,7 @@ class AppController extends Controller
             if ($isChannel) {
                 if (!$f) {
                     Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
-                        'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
+                        'telegram_id' => $user->telegram_id, 'follow_score' => Helper::$follow_score, 'user_id' => $user->id]);
                     $user->score += Helper::$follow_score;
                     $user->save();
                     return response()->json(['status' => 'success', 'message' => "MEMBER"], 200);
