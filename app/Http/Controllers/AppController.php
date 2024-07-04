@@ -481,8 +481,7 @@ class AppController extends Controller
         $isChannel = $request->chat_type == 'channel' ? true : false;
         $user = $request->user();
         if (!Divar::where('chat_id', $chat_id)->where('expire_time', '>=', Carbon::now())->exists()) {
-            return "TIMEOUT_CHAT";
-
+            return response()->json(['status' => 'danger', 'message' => "TIMEOUT_CHAT"], 200);
         }
         $res = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => $user->telegram_id,]);
 
@@ -492,25 +491,26 @@ class AppController extends Controller
                 if (!$f) {
                     Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
                         'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
-
                     $user->score += Helper::$follow_score;
                     $user->save();
-                    return 'MEMBER';
+                    return response()->json(['status' => 'success', 'message' => "MEMBER"], 200);
                 } else {
                     //left or before register
-                    return 'REPEATED_ADD';
+                    return response()->json(['status' => 'danger', 'message' => "REPEATED_ADD"], 200);
+
                 }
             } else { // group or supergroup
                 if ($f && $f->left)
-                    return 'REPEATED_ADD';
+                    return response()->json(['status' => 'danger', 'message' => "REPEATED_ADD"], 200);
                 else {
                     if ($user->score > $last_score) { // app not updated
-                        return 'MEMBER';
+                        return response()->json(['status' => 'success', 'message' => "MEMBER"], 200);
                     } else {
                         if (!$f)
                             Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
                                 'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
-                        return null;
+                        return response()->json(['status' => 'danger', 'message' => null], 200);
+
                     }
                 }
             }
@@ -519,13 +519,14 @@ class AppController extends Controller
             if (!$f)
                 Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
                     'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
-            return "ADMIN_OR_CREATOR";
+            return response()->json(['status' => 'danger', 'message' => "ADMIN_OR_CREATOR"], 200);
+
 
         } else if (strpos($res, "telegram") !== false)
-            return "TELEGRAM_ERROR";
-        else {
+            return response()->json(['status' => 'danger', 'message' => "TELEGRAM_ERROR"], 200);
 
-            return "BOT_NOT_ADDED_OR_NOT_EXISTS";
+        else {
+            return response()->json(['status' => 'danger', 'message' => "BOT_NOT_ADDED_OR_NOT_EXISTS"], 200);
 
         }
 
