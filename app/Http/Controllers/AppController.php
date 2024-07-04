@@ -415,21 +415,20 @@ class AppController extends Controller
 
         if ($item && $item->expire_time < Carbon::now()->timestamp) {
             // $item->delete();
-            return response(['status' => 'danger', 'message' => "TIMEOUT_CHAT"], 200);
+            return response()->json(['status' => 'danger', 'message' => "TIMEOUT_CHAT"], 200);
         }
 
         $role = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => $user->telegram_id,]);
 
-
         //   return json_encode($role);
         if ($role == 'member' || $role == 'administrator' || $role == 'creator' || $role == 'left' || $role == 'kicked')
-            return response(['status' => 'success', 'message' => "VIEW"], 200);
+            return response()->json(['status' => 'success', 'message' => "VIEW"], 200);
         else if (strpos($role, "telegram") !== false)
-            return response(['status' => 'danger', 'message' => "TELEGRAM_ERROR"], 200);
+            return response()->json(['status' => 'danger', 'message' => "TELEGRAM_ERROR"], 200);
         else if (strpos($role, "kicked") !== false || strpos($role, "chat not") !== false || strpos($role, "user not") !== false)
-            return response(['status' => 'danger', 'message' => "BOT_NOT_ADDED"], 200);
+            return response()->json(['status' => 'danger', 'message' => "BOT_NOT_ADDED"], 200);
         else
-            return response(['status' => 'danger', 'message' => $role], 200);
+            return response()->json(['status' => 'danger', 'message' => $role], 200);
 
     }
 
