@@ -51,10 +51,15 @@ class AppController extends Controller
     {
         if ($request->test == true)
             return Helper::$test;
-        return ['divar_scores' => Helper::$divar_scores, 'vip_score' => Helper::$vip_score,
-            'add_score' => Helper::$add_score, 'follow_score' => Helper::$follow_score,
-            'install_chat_score' => Helper::$install_chat_score, 'see_video_score' => Helper::$see_video_score,
-            'ref_score' => Helper::$ref_score, 'groups' => Group::select('id', 'name')->get(),
+        return [
+            'divar_scores' => Helper::$divar_scores,
+            'vip_score' => Helper::$vip_score,
+            'add_score' => Helper::$add_score,
+            'follow_score' => Helper::$follow_score,
+            'install_chat_score' => Helper::$install_chat_score,
+            'see_video_score' => Helper::$see_video_score,
+            'ref_score' => Helper::$ref_score,
+            'groups' => Group::select('id', 'name')->get(),
             'keys' => [
                 'bazaar' => env('BAZAAR_RSA'),
                 'myket' => env('MYKET_RSA'),
@@ -100,7 +105,6 @@ class AppController extends Controller
             ],
             'payment' => null,
             'hides' => [],
-
             'products' => Helper::PRODUCTS,
             'app_info' => [
                 'version' => Helper::APP_VERSION,
@@ -144,6 +148,7 @@ class AppController extends Controller
     {
         $name = $request->name;
         $group_id = $request->group_id;
+        $type = $request->type;
         $paginate = $request->paginate ?? 24;
         $page = $request->page ?? 1;
         $sortBy = $request->sortBy ?? 'expire_time';
@@ -154,6 +159,8 @@ class AppController extends Controller
             $query = $query->where('group_id', $group_id);
         if ($name)
             $query = $query->where('name', 'like', $name . '%');
+        if ($request->exists('type'))
+            $query = $query->where('is_vip', $type == 'vip');
 
         $query = $query->orderby('is_vip', 'DESC')->orderby($sortBy, $direction);
 //            ->        select(['id', 'user_id', 'chat_id', 'chat_username', 'chat_type', 'chat_title', 'chat_description', 'chat_main_color', 'is_vip', 'expire_time']);
