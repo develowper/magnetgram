@@ -42,6 +42,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'score' => 'integer',
         'verified' => 'bool',
+        'active' => 'bool',
         'must_join' => 'array',
         'channels' => 'array',
         'groups' => 'array',
