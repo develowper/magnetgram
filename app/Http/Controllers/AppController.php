@@ -108,7 +108,7 @@ class AppController extends Controller
                 'links' => [
                     'app' => '',
                     'comments' => '',
-                    'aparat' => 'https://www.aparat.com/vartastudio',
+                    'tutorial' => 'https://www.aparat.com/playlist/449893',
                     'site' => 'https://zil.ink/varta',
                     'telegram' => 'https://t.me/develowper',
                     'telegram_bot' => 'https://t.me/magnetgrambot',
