@@ -184,8 +184,8 @@ class AppController extends Controller
     protected function newChat(Request $request)
     {
         $chat_username = "@" . str_replace("@", "", $request->chat_username);
-
-        if (auth()->user()->score < Helper::$install_chat_score)
+        $user = $request->user();
+        if ($user->score < Helper::$install_chat_score)
             return "LOW_SCORE";
         if (Chat::where("chat_username", $chat_username)->exists())
             return "CHAT_EXISTS";
@@ -194,7 +194,7 @@ class AppController extends Controller
         if ($role != 'administrator' && $role != 'creator')
             return "BOT_NOT_ADMIN";
 
-        $role = $this->getUserInChat(['chat_id' => $chat_username, 'user_id' => auth()->user()->telegram_id,]);
+        $role = $this->getUserInChat(['chat_id' => $chat_username, 'user_id' => $user->telegram_id,]);
         if ($role != 'creator' && $role != 'administrator')
             return "NOT_ADMIN_OR_CREATOR";
 
@@ -203,24 +203,24 @@ class AppController extends Controller
             return "CHAT_NOT_FOUND";
 
         if ($info->type == 'channel') {
-            $tmp = auth()->user()->channels;
+            $tmp = $user->channels;
             array_push($tmp, $chat_username);
-            auth()->user()->channels = $tmp;
+            $user->channels = $tmp;
         } else {
-            $tmp = auth()->user()->groups;
+            $tmp = $user->groups;
             array_push($tmp, $chat_username);
-            auth()->user()->groups = $tmp;
+            $user->groups = $tmp;
         }
 
 
-        auth()->user()->score -= Helper::$install_chat_score;
-        auth()->user()->save();
+        $user->score -= Helper::$install_chat_score;
+        $user->save();
 
         $this->createChatImage($info->photo, "$info->id");
 
         Chat::create([
-            'user_id' => auth()->user()->id,
-            'user_telegram_id' => auth()->user()->telegram_id,
+            'user_id' => $user->id,
+            'user_telegram_id' => $user->telegram_id,
             'chat_id' => "$info->id",
             'chat_type' => $info->type,
             'chat_username' => '@' . $info->username,
@@ -237,10 +237,10 @@ class AppController extends Controller
     protected function deleteChat(Request $request)
     {
         $chat_id = $request->chat_id;
-
+        $user = $request->user();
 
         $chat = Chat::where('chat_id', "$chat_id")->first();
-        if ($chat && ($chat->user_id == auth()->user()->id || auth()->user()->role == 'ad')) {
+        if ($chat && ($chat->user_id == $user->id || $user->role == 'ad')) {
             Storage::delete("public/chats/$chat_id.jpg");
             $chat->delete();
             Divar::where('chat_id', "$chat_id")->delete();
@@ -260,7 +260,7 @@ class AppController extends Controller
         $vip = $request->is_vip ? Helper::$vip_score : 0;
         $agree_queue = $request->agree_queue;
         // return $agree_queue;
-
+        $user = $request->user();
 //check time is valid
         if (!in_array($time, array_keys(Helper::$divar_scores)))
             return null;
@@ -269,12 +269,12 @@ class AppController extends Controller
             return ['res' => "VIP_FULL"];
         }
 
-        if (auth()->user()->score < Helper::$divar_scores[$time] + $vip)
+        if ($user->score < Helper::$divar_scores[$time] + $vip)
             return ['res' => "LOW_SCORE"];
 
 
         $chat = Chat::where('chat_id', $chat_id)->first();
-        $role = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => auth()->user()->telegram_id]);
+        $role = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => $user->telegram_id]);
 
         if (($role != 'administrator' && $role != 'creator') || !$chat)
             return ['res' => "NOT_ADMIN"];
@@ -288,11 +288,11 @@ class AppController extends Controller
 
 
         if (Divar::count() < Helper::$divar_show_items) {
-            $d = Divar::create(['user_id' => auth()->user()->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat->chat_username,
+            $d = Divar::create(['user_id' => $user->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat->chat_username, 'image' => $chat->image,
                 'chat_title' => $chat->chat_title, 'chat_description' => $chat->chat_description, 'chat_main_color' => $chat->chat_main_color, 'is_vip' => $vip > 0 ? true : false, 'expire_time' => Carbon::now()->addMinutes($time), 'start_time' => Carbon::now()]);
 
-            $first_name = auth()->user()->name;
-            $from_id = auth()->user()->telegram_id;
+            $first_name = $user->name;
+            $from_id = $user->telegram_id;
             $chat_username = '@' . $chat->chat_username;
 
             foreach (Helper::$logs as $log)
@@ -309,18 +309,18 @@ class AppController extends Controller
                 }
             }
 
-            auth()->user()->score -= (Helper::$divar_scores[$time] + $vip);
-            auth()->user()->save();
+            $user->score -= (Helper::$divar_scores[$time] + $vip);
+            $user->save();
 
-            return ['res' => 'SUCCESS_DIVAR', 'score' => auth()->user()->score, 'is_vip' => $d->is_vip, 'expire_time' => $d->expire_time];
+            return ['res' => 'SUCCESS_DIVAR', 'score' => $user->score, 'is_vip' => $d->is_vip, 'expire_time' => $d->expire_time];
         } else {
             if ($agree_queue) {
 
-                $q = Queue::create(['user_id' => auth()->user()->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat->chat_username,
+                $q = Queue::create(['user_id' => $user->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat->chat_username, 'image' => $chat->image,
                     'chat_title' => $chat->chat_title, 'chat_description' => $chat->chat_description, 'chat_main_color' => $chat->chat_main_color, 'is_vip' => $vip > 0 ? true : false, 'show_time' => $time]);
-                auth()->user()->score -= (Helper::$divar_scores[$time] + $vip);
-                auth()->user()->save();
-                return ['res' => 'SUCCESS_QUEUE', 'score' => auth()->user()->score, 'is_vip' => $q->is_vip];
+                $user->score -= (Helper::$divar_scores[$time] + $vip);
+                $user->save();
+                return ['res' => 'SUCCESS_QUEUE', 'score' => $user->score, 'is_vip' => $q->is_vip];
             } else
                 return ['res' => 'AGREE_QUEUE'];
         }
@@ -331,9 +331,10 @@ class AppController extends Controller
     protected function getUserChats(Request $request)
     {
         $what = $request->what;
+        $user = $request->user();
 
         if (!$what) {
-            $chats = Chat::where('user_id', auth()->user()->id)->get();
+            $chats = Chat::where('user_id', $user->id)->get();
             foreach ($chats as $chat) {
                 $d = Divar::where('chat_id', $chat->chat_id)->where('expire_time', '>=', Carbon::now())->first();
 
@@ -409,7 +410,7 @@ class AppController extends Controller
     function viewChat(Request $request)
     {
         $chat_id = $request->chat_id;
-
+        $user = $request->user();
         $item = Divar::where('chat_id', $chat_id)->first();
 
         if ($item && $item->expire_time < Carbon::now()->timestamp) {
@@ -417,7 +418,7 @@ class AppController extends Controller
             return "TIMEOUT_CHAT";
         }
 
-        $role = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => auth()->user()->telegram_id,]);
+        $role = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => $user->telegram_id,]);
 
 
         //   return json_encode($role);
@@ -478,22 +479,22 @@ class AppController extends Controller
         $chat_username = $request->chat_username;
         $last_score = $request->last_score;
         $isChannel = $request->chat_type == 'channel' ? true : false;
-
+        $user = $request->user();
         if (!Divar::where('chat_id', $chat_id)->where('expire_time', '>=', Carbon::now())->exists()) {
             return "TIMEOUT_CHAT";
 
         }
-        $res = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => auth()->user()->telegram_id,]);
+        $res = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => $user->telegram_id,]);
 
-        $f = Follower::where('telegram_id', auth()->user()->telegram_id)->where('chat_id', $chat_id)->first();
+        $f = Follower::where('telegram_id', $user->telegram_id)->where('chat_id', $chat_id)->first();
         if ($res == 'member') {
             if ($isChannel) {
                 if (!$f) {
                     Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
-                        'telegram_id' => auth()->user()->telegram_id, 'user_id' => auth()->user()->id]);
+                        'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
 
-                    auth()->user()->score += Helper::$follow_score;
-                    auth()->user()->save();
+                    $user->score += Helper::$follow_score;
+                    $user->save();
                     return 'MEMBER';
                 } else {
                     //left or before register
@@ -503,12 +504,12 @@ class AppController extends Controller
                 if ($f && $f->left)
                     return 'REPEATED_ADD';
                 else {
-                    if (auth()->user()->score > $last_score) { // app not updated
+                    if ($user->score > $last_score) { // app not updated
                         return 'MEMBER';
                     } else {
                         if (!$f)
                             Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
-                                'telegram_id' => auth()->user()->telegram_id, 'user_id' => auth()->user()->id]);
+                                'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
                         return null;
                     }
                 }
@@ -517,7 +518,7 @@ class AppController extends Controller
         } elseif ($res == 'creator' || $res == 'administrator') {
             if (!$f)
                 Follower::create(['chat_id' => $chat_id, 'chat_username' => $chat_username,
-                    'telegram_id' => auth()->user()->telegram_id, 'user_id' => auth()->user()->id]);
+                    'telegram_id' => $user->telegram_id, 'user_id' => $user->id]);
             return "ADMIN_OR_CREATOR";
 
         } else if (strpos($res, "telegram") !== false)
@@ -538,20 +539,20 @@ class AppController extends Controller
         if ($user)
             switch ($request->command) {
                 case  'install_chat':
-                    auth()->user()->score += Helper::$install_chat_score;
-                    auth()->user()->save();
-                    return auth()->user()->score;
+                    $user->score += Helper::$install_chat_score;
+                    $user->save();
+                    return $user->score;
                     break;
                 case  'follow_chat':
-                    auth()->user()->score += Helper::$follow_score;
-                    auth()->user()->save();
-                    return auth()->user()->score;
+                    $user->score += Helper::$follow_score;
+                    $user->save();
+                    return $user->score;
 
                     break;
                 case  'see_video':
-                    auth()->user()->score += Helper::$see_video_score;
-                    auth()->user()->save();
-                    return auth()->user()->score;
+                    $user->score += Helper::$see_video_score;
+                    $user->save();
+                    return $user->score;
                     break;
 
             }

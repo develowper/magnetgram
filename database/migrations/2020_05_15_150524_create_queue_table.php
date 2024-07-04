@@ -16,6 +16,8 @@ class CreateQueueTable extends Migration
         Schema::create('divar_queue', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
+            $table->string('image', 30)->nullable();
+            
             $table->string('chat_id', 50);
             $table->string('chat_type', 20);
             $table->string('chat_username', 50);

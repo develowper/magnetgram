@@ -17,6 +17,8 @@ class CreateDivarTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('chat_id', 30)->index();
+            $table->string('image', 30)->nullable();
+
             $table->string('chat_username', 50);
             $table->string('message_id', 30)->index();
             $table->string('chat_type', 10);

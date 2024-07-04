@@ -3,6 +3,12 @@
 //--------[Your Config]--------//
 namespace App\Http;
 
+use App\Models\Chat;
+use App\Models\Group;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
 class Helper
 {
 
@@ -207,7 +213,7 @@ class Helper
             $chat->save();
         }
         $user = User::where('id', $chat->user_id)->first();
-        $divar = Divar::create(['user_id' => $chat->user_id, 'chat_id' => "$info->id", 'chat_type' => $chat_type, 'chat_username' => "@$info->username",
+        $divar = Divar::create(['user_id' => $chat->user_id, 'chat_id' => "$info->id", 'chat_type' => $chat_type, 'image' => $chat->image, $chat_type, 'chat_username' => "@$info->username",
             'chat_title' => $info->title, 'chat_description' => $info->description, 'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
             'expire_time' => Carbon::now()->addHours($time), 'start_time' => Carbon::now(),
             'group_id' => $chat->group_id, 'follow_score' => $follow_score, 'ref_score' => $ref_score,]);
@@ -387,8 +393,8 @@ class Helper
         Storage::put("public/chats/$timestamp.jpg", $client->get($image)->getBody());
 
 
-        $img = \Intervention\Image\Facades\Image::make(storage_path("app/public/chats/$timestamp.jpg"));
-        $img2 = \Intervention\Image\Facades\Image::make(storage_path("app/public/magnetgramcover.png"));
+        $img = Image::make(storage_path("app/public/chats/$timestamp.jpg"));
+        $img2 = Image::make(storage_path("app/public/magnetgramcover.png"));
         $img2->resize($img->width(), $img->height());
         $img->insert($img2, 'center');
         $img->save(storage_path("app/public/chats/$timestamp.jpg"));

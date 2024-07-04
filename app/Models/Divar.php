@@ -12,7 +12,7 @@ class Divar extends Model
     public $timestamps = false;
     protected $table = 'divar';
     protected $fillable = [
-        'user_id', 'chat_id', 'group_id', 'chat_type', 'chat_username', 'chat_title', 'chat_description',
+        'user_id', 'chat_id', 'image', 'group_id', 'chat_type', 'chat_username', 'chat_title', 'chat_description',
         'chat_main_color', 'start_time', 'expire_time', 'is_vip', 'message_id', 'follow_score', 'ref_score', 'processed', 'blocked', 'validated', 'members'
     ];
     protected $casts = [

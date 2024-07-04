@@ -19,6 +19,14 @@ use Inertia\Inertia;
 
 Route::get('/test', function () {
 
+    foreach (\App\Models\Divar::get() as $item) {
+        $c = \App\Models\Chat::where('chat_id', "$item->chat_id")->first();
+        if ($c) {
+            $item->image = $c->image;
+            $item->save();
+        }
+    }
+
 });
 Route::get('/', function () {
     return Inertia::render('Welcome', [

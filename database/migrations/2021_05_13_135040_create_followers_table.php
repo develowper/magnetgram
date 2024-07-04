@@ -21,6 +21,7 @@ class CreateFollowersTable extends Migration
             $table->string('chat_id', 25)->index();
             $table->integer('follow_score')->unsigned();
             $table->integer('ref_score')->unsigned();
+            $table->boolean('left')->default(false);
             $table->timestamp('created_at')->useCurrent();
 
         });
