@@ -415,7 +415,7 @@ class AppController extends Controller
 
         if ($item && $item->expire_time < Carbon::now()->timestamp) {
             // $item->delete();
-            return "TIMEOUT_CHAT";
+            return response(['status' => 'danger', 'message' => "TIMEOUT_CHAT"], 200);
         }
 
         $role = $this->getUserInChat(['chat_id' => $chat_id, 'user_id' => $user->telegram_id,]);
@@ -423,13 +423,14 @@ class AppController extends Controller
 
         //   return json_encode($role);
         if ($role == 'member' || $role == 'administrator' || $role == 'creator' || $role == 'left' || $role == 'kicked')
-            return "VIEW";
+            return response(['status' => 'success', 'message' => "VIEW"], 200);
         else if (strpos($role, "telegram") !== false)
-            return "TELEGRAM_ERROR";
+            return response(['status' => 'danger', 'message' => "TELEGRAM_ERROR"], 200);
         else if (strpos($role, "kicked") !== false || strpos($role, "chat not") !== false || strpos($role, "user not") !== false)
-            return "BOT_NOT_ADDED";
+            return response(['status' => 'danger', 'message' => "BOT_NOT_ADDED"], 200);
         else
-            return $role;
+            return response(['status' => 'danger', 'message' => $role], 200);
+
     }
 
     protected
