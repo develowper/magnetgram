@@ -15,8 +15,8 @@ class Helper
     const APP_VERSION = 1;
     const PRODUCTS = [
         ['name' => "100 عدد سکه", 'key' => "coin-100", 'price' => 5000,],
-        ['name' => "300 عدد سکه", 'key' => "coin-100", 'price' => 10000,],
-        ['name' => "500 عدد سکه", 'key' => "coin-100", 'price' => 15000,],
+        ['name' => "300 عدد سکه", 'key' => "coin-300", 'price' => 10000,],
+        ['name' => "500 عدد سکه", 'key' => "coin-500", 'price' => 15000,],
     ];
     static $market_link = [
         "playstore" => "https://play.google.com/store/apps/details?id=com.varta.magnetgram",
@@ -45,7 +45,7 @@ class Helper
     static $vip_count = 4;
     static $vip_score = 0;// 80;
     static $install_chat_score = 0;// 100;
-    static $divar_scores = ['6' => 0, '12' => 0, '24' => 0]; //min
+    static $divar_scores = ['6' => 50, '12' => 100, '24' => 200]; //min
     static $bot = "@magnetgrambot";
     static $admin = "@develowper";
     static $divarChannel = "@magnetgramwall";
