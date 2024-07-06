@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Adv;
 use App\Http\Helper;
 use App\Models\Chat;
 use App\Models\Divar;

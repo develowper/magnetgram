@@ -1,7 +1,7 @@
 <?php
 
 //--------[Your Config]--------//
-namespace App\Http;
+namespace App\Http\Helpers;
 
 use App\Models\Chat;
 use App\Models\Group;
