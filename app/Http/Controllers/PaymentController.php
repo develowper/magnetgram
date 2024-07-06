@@ -3,17 +3,12 @@
 namespace App\Http\Controllers;
 
 
-use App\eblagh\Controllers\CouponController;
-use App\eblagh\Helpers\Helper;
-use App\eblagh\Helpers\Pay;
-use App\eblagh\Helpers\Telegram;
-use App\eblagh\Models\Invite;
-use App\eblagh\Models\Payment;
-use App\eblagh\Models\Transaction;
-use App\eblagh\Models\User;
 use App\Http\Controllers\Controller;
-use App\Setting;
-use App\Transaction;
+use App\Http\Helper;
+use App\Models\Setting;
+use App\Models\Transaction;
+use App\Models\User;
+use App\Payment;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
@@ -21,8 +16,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Mockery\Exception;
 use PHPUnit\TextUI\Help;
-use function App\eblagh\Controllers\str_contains;
-use function App\eblagh\Controllers\str_starts_with;
 
 class PaymentController extends Controller
 {
@@ -32,10 +25,10 @@ class PaymentController extends Controller
 
     public function __construct()
     {
-        $this->bazaar_client_id = env('EBLAGH_BAZAAR_CLIENT_ID');
-        $this->bazaar_client_secret = env('EBLAGH_BAZAAR_CLIENT_SECRET');
+        $this->bazaar_client_id = env('BAZAAR_CLIENT_ID');
+        $this->bazaar_client_secret = env('BAZAAR_CLIENT_SECRET');
 
-        $this->myket_access_token = env('EBLAGH_MYKET_ACCESS_TOKEN');
+        $this->myket_access_token = env('MYKET_ACCESS_TOKEN');
     }
 
     protected function create(Request $request)
@@ -111,7 +104,7 @@ class PaymentController extends Controller
                 'app_version' => $appVersion,
                 'title' => $title,
                 'sku' => $sku,
-                'rsa' => $market == 'bazaar' ? env('EBLAGH_BAZAAR_RSA') : env('EBLAGH_MYKET_RSA'),
+                'rsa' => $market == 'bazaar' ? env('BAZAAR_RSA') : env('MYKET_RSA'),
                 'order_id' => $order_id,
                 'user_id' => $user->id,
                 'market' => $market,
@@ -127,9 +120,9 @@ class PaymentController extends Controller
         if ($request && $request->get('code')) {
             $this->getFirstBazaarToken($request->get('code'));
         }
-        $access = Setting::firstOrNew(['key' => 'EBLAGH_BAZAAR_ACCESS_TOKEN']);
-        $refresh = Setting::firstOrNew(['key' => 'EBLAGH_BAZAAR_REFRESH_TOKEN']);
-        $expire = Setting::firstOrNew(['key' => 'EBLAGH_BAZAAR_EXPIRE']);
+        $access = Setting::firstOrNew(['key' => 'BAZAAR_ACCESS_TOKEN']);
+        $refresh = Setting::firstOrNew(['key' => 'BAZAAR_REFRESH_TOKEN']);
+        $expire = Setting::firstOrNew(['key' => 'BAZAAR_EXPIRE']);
 
         //refresh token
         if ($refresh->value &&
@@ -243,7 +236,7 @@ class PaymentController extends Controller
         $transaction->type = $plan['key'];
 
         $transaction->save();
-        \App\Helpers\Telegram::log(Helper::$TELEGRAM_GROUP_ID, 'transaction_created', $transaction);
+        Telegram::log(Helper::$TELEGRAM_GROUP_ID, 'transaction_created', $transaction);
 
         //referral
         $invite = Invite::whereNotNull('invited_id')->whereIn('invited_id', [$user->id, $user->telegram_id])->firstOrNew();
@@ -259,7 +252,7 @@ class PaymentController extends Controller
             $transaction->user_id = $inviter_user_id;
             $transaction->amount = round($commission * $price, 0, PHP_ROUND_HALF_DOWN) * 10;
             $transaction->save();
-            \App\Helpers\Telegram::log(Helper::$TELEGRAM_GROUP_ID, 'transaction_created', $transaction);
+            Telegram::log(Helper::$TELEGRAM_GROUP_ID, 'transaction_created', $transaction);
 
         }
 
@@ -452,7 +445,7 @@ class PaymentController extends Controller
 //            'account_id' => ''
         ];
 
-        $enc = JWT::encode($payload, env('EBLAGH_BAZAAR_JWT'), 'HS256');
+        $enc = JWT::encode($payload, env('BAZAAR_JWT'), 'HS256');
 
         return $enc;
 
@@ -471,7 +464,7 @@ class PaymentController extends Controller
 //        $this->cafRefresh();
 //        $setting = Setting::first();
         $response = Http::withHeaders([
-            'X-Access-Token' => env('EBLAGH_MYKET_ACCESS_TOKEN')
+            'X-Access-Token' => env('MYKET_ACCESS_TOKEN')
         ])
             ->get("https://developer.myket.ir/api/applications/" . Helper::$PACKAGE . "/purchases/products/$productId/tokens/$purchaseToken");
         if ($response->status() == 200) {
@@ -514,15 +507,15 @@ class PaymentController extends Controller
         $response = $response->object() ?? null;
         if ($response && !empty($response->access_token)) {
             Setting::updateOrCreate(
-                ['key' => 'EBLAGH_BAZAAR_ACCESS_TOKEN'],
+                ['key' => 'BAZAAR_ACCESS_TOKEN'],
                 ['value' => $response->access_token]
             );
             Setting::updateOrCreate(
-                ['key' => 'EBLAGH_BAZAAR_REFRESH_TOKEN'],
+                ['key' => 'BAZAAR_REFRESH_TOKEN'],
                 ['value' => $response->refresh_token]
             );
             Setting::updateOrCreate(
-                ['key' => 'EBLAGH_BAZAAR_EXPIRE'],
+                ['key' => 'BAZAAR_EXPIRE'],
                 ['value' => now()->addSeconds($response->expires_in)]
             );
             return $response->access_token;
