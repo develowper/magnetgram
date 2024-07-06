@@ -360,7 +360,7 @@ class AppController extends Controller
                     $chat->is_vip = $q->is_vip;
                 }
             }
-            return response()->json(['data' => $chats]);
+            return response()->json(['data' => $chats, 'total' => count($chats ?? [])]);
         }
     }
 
