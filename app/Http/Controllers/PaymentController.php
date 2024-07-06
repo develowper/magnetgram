@@ -13,6 +13,7 @@ use App\eblagh\Models\Transaction;
 use App\eblagh\Models\User;
 use App\Http\Controllers\Controller;
 use App\Setting;
+use App\Transaction;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
