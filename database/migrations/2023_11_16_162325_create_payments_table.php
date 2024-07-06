@@ -14,7 +14,7 @@ return new class extends Migration {
     public function up()
     {
 //    'pay_type', 'pay_for', 'pay_result',
-        Schema::create('eblagh_payments', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->smallInteger('app_version')->unsigned()->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration {
             $table->string('info', 2048)->nullable();
             $table->integer('amount')->default(0);
             $table->boolean('is_success')->default(false);
-            $table->foreign('user_id')->references('id')->on('eblagh_users')->onDelete('no action');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
 //            $table->foreign('inviter_user_id')->references('id')->on('users')->onDelete('no action');
 
             $table->timestamps();
@@ -43,6 +43,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('eblagh_payments');
+        Schema::dropIfExists('payments');
     }
 };

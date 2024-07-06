@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('eblagh_transactions', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('title', 100);
             $table->string('type', 50)->nullable()->index();
@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->string('coupon', 10)->nullable(); //null is for public
 
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('eblagh_users')->onDelete('no action');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
 
         });
     }
