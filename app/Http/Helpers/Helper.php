@@ -43,7 +43,7 @@ class Helper
     static $follow_score = 5;
     static $add_score = 1;
     static $vip_count = 4;
-    static $vip_score = 0;// 80;
+    static $vip_score = 300;// 80;
     static $install_chat_score = 0;// 100;
     static $divar_scores = ['6' => 50, '12' => 100, '24' => 200]; //min
     static $bot = "@magnetgrambot";
