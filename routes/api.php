@@ -29,6 +29,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('getsettings', [AppController::class, 'getSettings']);
     Route::get('getdivar', [AppController::class, 'getDivar']);
     Route::get('user/info', [AppController::class, 'getUser']);
+    Route::post('user/changepassword', [UserController::class, 'changePassword'])->name('user.password.change');
+    Route::post('user/updateemail', [UserController::class, 'updateEmail'])->name('user.email.update');
+    Route::post('user/updateavatar', [UserController::class, 'updateAvatar'])->name('user.avatar.update');
+    Route::post('user/update', [UserController::class, 'update'])->name('user.update');
+
     Route::post('logout', [APIController::class, 'logout']);
     Route::post('checkuserjoined', [AppController::class, 'checkuserJoined']);
     Route::post('viewchat', [AppController::class, 'viewChat']);
