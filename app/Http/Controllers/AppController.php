@@ -607,16 +607,16 @@ class AppController extends Controller
     }
 
     protected
-    function leftUsersPenalty()
+    function leftUsersPenalty(Request $request)
     {
 
-        $user = auth()->user();
+        $user = $request->user();
         if (in_array($user->telegram_id, Helper::$Dev)) {
 
             $user_chats = Chat::pluck('chat_username')->toArray();
 
         } else
-            $user_chats = array_merge($user->groups, $user->channels);
+            $user_chats = Chat::where('user_id', $user->id)->pluck('chat_username')->toArray();
         $left = 0;
 
         foreach (Follower::whereIn('chat_username', $user_chats)->where('left', false)->get() as $f) {
@@ -652,7 +652,7 @@ class AppController extends Controller
         }
 
 
-        return $left;
+        return response()->json(['left' => $left, 'status' => 'success']);
     }
 
 
