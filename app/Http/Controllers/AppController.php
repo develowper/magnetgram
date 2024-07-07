@@ -222,21 +222,23 @@ class AppController extends Controller
         $chat_username = "@" . str_replace("@", "", $request->chat_username);
         $user = $request->user();
         if ($user->score < Helper::$install_chat_score)
-            return "LOW_SCORE";
+            return response()->json(['message' => 'LOW_SCORE', 'status' => 'danger']);
         if (Chat::where("chat_username", $chat_username)->exists())
-            return "CHAT_EXISTS";
+            return response()->json(['message' => 'CHAT_EXISTS', 'status' => 'danger']);
+
 
         $role = $this->getUserInChat(['chat_id' => $chat_username, 'user_id' => Helper::$bot_id,]);
         if ($role != 'administrator' && $role != 'creator')
-            return "BOT_NOT_ADMIN";
+            return response()->json(['message' => 'BOT_NOT_ADMIN', 'status' => 'danger']);
+
 
         $role = $this->getUserInChat(['chat_id' => $chat_username, 'user_id' => $user->telegram_id,]);
         if ($role != 'creator' && $role != 'administrator')
-            return "NOT_ADMIN_OR_CREATOR";
+            return response()->json(['message' => 'NOT_ADMIN_OR_CREATOR', 'status' => 'danger']);
 
         $info = $this->getChatInfo($chat_username);
         if (!$info)
-            return "CHAT_NOT_FOUND";
+            return response()->json(['message' => 'CHAT_NOT_FOUND', 'status' => 'danger']);
 
 //        if ($info->type == 'channel') {
 //            $tmp = $user->channels;
@@ -265,8 +267,8 @@ class AppController extends Controller
             'chat_description' => $info->description,
         ]);
 
+        return response()->json(['message' => 'REGISTER_SUCCESS', 'status' => 'success']);
 
-        return "REGISTER_SUCCESS";
 
     }
 
