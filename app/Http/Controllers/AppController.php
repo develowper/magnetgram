@@ -672,7 +672,7 @@ class AppController extends Controller
 
         $res = Http::asForm()->post($url, $datas);
         if ($res->status() != 200)
-            self::sendMessage(Helper::$logs[0], $res->body() . PHP_EOL . print_r($datas, true));
+            self::sendMessage(Helper::$logs[0], $res->body() . PHP_EOL . print_r($datas, true), null);
         return json_decode($res->body());
 
 
