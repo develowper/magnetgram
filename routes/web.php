@@ -22,10 +22,10 @@ Route::get('/test', function () {
 
     foreach (\App\Models\Divar::get() as $item) {
 
-        if (Storage::exists("public/chats/$item->image.jpg")) {
-            Storage::move("public/chats/$item->image.jpg", "public/chats/$item->chat_id.jpg");
-            $item->image = $item->chat_id;
-        }
+//        if (Storage::exists("public/chats/$item->image.jpg")) {
+//            Storage::move("public/chats/$item->image.jpg", "public/chats/$item->chat_id.jpg");
+//            $item->image = $item->chat_id;
+//        }
 
 //            $c = \App\Models\Chat::where('chat_id', "$item->chat_id")->first();
 //        if ($c) {
