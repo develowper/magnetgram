@@ -306,11 +306,11 @@ class AppController extends Controller
 
             $ref = Ref::where('new_telegram_id', $from_id)->first();
             if ($ref) {
-                $user = User::where('telegram_id', $ref->invited_by)->first();
-                if ($user) {
+                $u = User::where('telegram_id', $ref->invited_by)->first();
+                if ($u) {
                     $ref_score = Helper::$ref_score;
-                    $user->score += $ref_score;
-                    $user->save();
+                    $u->score += $ref_score;
+                    $u->save();
                     $this->sendMessage($ref->invited_by, "■  کاربر [$first_name](tg://user?id=$from_id)  را وارد دیوار کرد و $ref_score سکه به شما اضافه شد! $chat_username .", 'MarkDown', null, null);
                 }
             }
