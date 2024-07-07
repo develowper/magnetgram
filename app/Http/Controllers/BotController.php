@@ -34,6 +34,7 @@ use PhpParser\Node\Expr\AssignOp\Div;
 use PhpParser\Node\Stmt\Else_;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Telegram\Bot\Traits\Http;
+use function App\Http\Helpers\simple_color_thief;
 
 
 class BotController extends Controller
