@@ -367,10 +367,15 @@ class AppController extends Controller
     protected function getUserChats(Request $request)
     {
         $what = $request->what;
+        $search = $request->search;
         $user = $request->user();
 
         if (!$what) {
-            $chats = Chat::where('user_id', $user->id)->get();
+            $chat = Chat::query()->where('user_id', $user->id);
+            if ($search)
+                $chat->where('chat_title', 'like', "%$search")
+                    ->orWhere('chat_username', 'like', "%$search");
+            $chats = $chat->get();
             foreach ($chats as $chat) {
                 $d = Divar::where('chat_id', $chat->chat_id)->where('expire_time', '>=', Carbon::now())->first();
 
@@ -406,7 +411,7 @@ class AppController extends Controller
             if ($chat) {
                 $info = $this->getChatInfo($chat_id);
                 if ($info) {
-                   Helper::createChatImage($info->photo, "$info->id");
+                    Helper::createChatImage($info->photo, "$info->id");
                     $chat->chat_main_color = $this->simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
                     $chat->chat_username = $info->username;
                     $chat->chat_title = $info->title;
