@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('payment/create', [PaymentController::class, 'create'])->name('payment.create');
     Route::get('payment/transactions', [PaymentController::class, 'transactions'])->name('payment.transaction.search');
 
+    Route::post('addTovip', [AppController::class, 'addToVip']);
     Route::post('addtodivar', [AppController::class, 'addToDivar']);
     Route::get('getsettings', [AppController::class, 'getSettings']);
     Route::get('getdivar', [AppController::class, 'getDivar']);

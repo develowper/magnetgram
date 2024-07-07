@@ -143,6 +143,28 @@ class AppController extends Controller
 
     }
 
+    protected function addToVip(Request $request)
+    {
+        $user = $request->user();
+        $chatId = $request->chat_id;
+
+        $chat = Chat::where("chat_id", $chatId)->where('user_id', $user->id)->first();
+        if (!$chat)
+            return "CHAT_NOT_FOUND";
+        $divar = Divar::where("chat_id", $chatId)->where('user_id', $user->id)->where('expire_time', '>=', Carbon::now())->first();
+
+        if (!$divar)
+            return "ADD_TO_DIVAR_FIRST";
+        if ($divar->is_vip)
+            return "IS_VIP_BEFORE";
+        $divar->is_vip = true;
+        $divar->save();
+        $user->score -= (Helper::$vip_score);
+        $user->save();
+
+
+    }
+
     protected function getDivar(Request $request)
     {
         $name = $request->name;
