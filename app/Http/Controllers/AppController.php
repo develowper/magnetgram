@@ -158,7 +158,7 @@ class AppController extends Controller
             $query = $query->where('group_id', $group_id);
         if ($name)
             $query = $query->where('name', 'like', $name . '%');
-        if ($request->exists('type'))
+        if ($request->exists('type') && $request->type !== null)
             $query = $query->where('is_vip', $type == 'vip');
 
         $query = $query->orderby('is_vip', 'DESC')->orderby($sortBy, $direction);
