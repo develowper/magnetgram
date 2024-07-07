@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\AssignOp\Div;
+use function App\Http\Helpers\simple_color_thief;
 
 class AppController extends Controller
 {
@@ -262,7 +263,7 @@ class AppController extends Controller
             'chat_id' => "$info->id",
             'chat_type' => $info->type,
             'chat_username' => '@' . $info->username,
-            'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
+            'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
             'chat_title' => $info->title,
             'chat_description' => $info->description,
         ]);
@@ -417,7 +418,7 @@ class AppController extends Controller
                 $info = $this->getChatInfo($chat_id);
                 if ($info) {
                     Helper::createChatImage($info->photo, "$info->id");
-                    $chat->chat_main_color = $this->simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
+                    $chat->chat_main_color = Helper::simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
                     $chat->chat_username = $info->username;
                     $chat->chat_title = $info->title;
                     $chat->chat_description = $info->description;

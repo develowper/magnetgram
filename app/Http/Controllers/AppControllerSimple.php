@@ -108,7 +108,7 @@ class AppControllerSimple extends Controller
             'chat_id' => "$info->id",
             'chat_type' => $info->type,
             'chat_username' => '@' . $info->username,
-            'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
+            'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
             'chat_title' => $info->title,
             'chat_description' => $info->description,
         ]);

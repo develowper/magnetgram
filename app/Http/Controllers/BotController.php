@@ -601,7 +601,7 @@ class BotController extends Controller
                             $txt = "*به علت پر بودن دیوار, کانال/گروه شما در صف قرار گرفت و به محض خالی شدن دیوار, به آن اضافه خواهد شد.*";
                             Queue::create(['user_id' => $this->user->id, 'chat_id' => "$info_id", 'chat_type' => $chat_type, 'chat_username' => "@$info->username",
                                 'chat_title' => $info->title, 'chat_description' => $info->description,
-                                'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$info_id.jpg")), 'show_time' => $time,]);
+                                'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$info_id.jpg")), 'show_time' => $time,]);
                             //'photo'=>small_file_id or small_file_unique_id
                         }
 //                        Helper::createChatImage($info->photo, "$info_id");
@@ -1274,7 +1274,7 @@ class BotController extends Controller
                         'chat_username' => "@" . $info->username,
                         'chat_title' => $info->title,
                         'chat_description' => $info->description,
-                        'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$timestamp.jpg"))
+                        'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$timestamp.jpg"))
                     ]);
 
                     if ($from == 'divar') {
@@ -1839,7 +1839,7 @@ class BotController extends Controller
                                 'chat_username' => "@" . $info->username,
                                 'chat_title' => $info->title,
                                 'chat_description' => $info->description,
-                                'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$timestamp.jpg"))
+                                'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$timestamp.jpg"))
 
                             ]);
                             $this->sendMessage($chat_id, "■ گروه با موفقیت ثبت شد.\n🔹 اکنون وارد گروه شده و دستور 'نصب' را وارد کنید\n🔹سپس می توانید گروه را در ربات تبلیغ نمایید!\n\n🔹 در صورت ادمین نبودن ربات در گروه, گروه نمایش داده نمی شود . \n🌹  ", 'Markdown', $message_id, $button);

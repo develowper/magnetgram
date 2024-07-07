@@ -214,7 +214,7 @@ class Helper
         }
         $user = User::where('id', $chat->user_id)->first();
         $divar = Divar::create(['user_id' => $chat->user_id, 'chat_id' => "$info->id", 'chat_type' => $chat_type, 'image' => $chat->image, $chat_type, 'chat_username' => "@$info->username",
-            'chat_title' => $info->title, 'chat_description' => $info->description, 'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
+            'chat_title' => $info->title, 'chat_description' => $info->description, 'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
             'expire_time' => Carbon::now()->addHours($time), 'start_time' => Carbon::now(),
             'group_id' => $chat->group_id, 'follow_score' => $follow_score, 'ref_score' => $ref_score,]);
 
@@ -308,7 +308,7 @@ class Helper
         $divar->save();
         Chat::where('chat_id', "$info->id")->update(['chat_title' => $info->title,
             'chat_description' => $info->description, 'chat_username' => "@$info->username",
-            'chat_main_color' => simple_color_thief(storage_path("app/public/chats/$timestamp.jpg")), 'chat_type' => $chat_type]);
+            'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$timestamp.jpg")), 'chat_type' => $chat_type]);
 
         $message = Helper::sendPhoto("@lamassaba", asset("storage/chats/$timestamp.jpg"), self::MarkDown($caption), null, $cell_button);
 
@@ -434,31 +434,31 @@ class Helper
             'reply_markup' => $keyboard
         ]);
     }
-}
 
-function simple_color_thief($img, $default = null)
-{
-    if (@exif_imagetype($img)) { // CHECK IF IT IS AN IMAGE
-        $type = getimagesize($img)[2]; // GET TYPE
-        if ($type === 1) { // GIF
-            $image = imagecreatefromgif($img);
-            // IF IMAGE IS TRANSPARENT (alpha=127) RETURN fff FOR WHITE
-            if (imagecolorsforindex($image, imagecolorstotal($image) - 1)['alpha'] == 127) return 'fff';
-        } else if ($type === 2) { // JPG
-            $image = imagecreatefromjpeg($img);
-        } else if ($type === 3) { // PNG
-            $image = imagecreatefrompng($img);
-            // IF IMAGE IS TRANSPARENT (alpha=127) RETURN fff FOR WHITE
-            if ((imagecolorat($image, 0, 0) >> 24) & 0x7F === 127) return 'fff';
-        } else { // NO CORRECT IMAGE TYPE (GIF, JPG or PNG)
-            return $default;
+    public static function simple_color_thief($img, $default = null)
+    {
+        if (@exif_imagetype($img)) { // CHECK IF IT IS AN IMAGE
+            $type = getimagesize($img)[2]; // GET TYPE
+            if ($type === 1) { // GIF
+                $image = imagecreatefromgif($img);
+                // IF IMAGE IS TRANSPARENT (alpha=127) RETURN fff FOR WHITE
+                if (imagecolorsforindex($image, imagecolorstotal($image) - 1)['alpha'] == 127) return 'fff';
+            } else if ($type === 2) { // JPG
+                $image = imagecreatefromjpeg($img);
+            } else if ($type === 3) { // PNG
+                $image = imagecreatefrompng($img);
+                // IF IMAGE IS TRANSPARENT (alpha=127) RETURN fff FOR WHITE
+                if ((imagecolorat($image, 0, 0) >> 24) & 0x7F === 127) return 'fff';
+            } else { // NO CORRECT IMAGE TYPE (GIF, JPG or PNG)
+                return $default;
+            }
+        } else { // NOT AN IMAGE
+            return null;
         }
-    } else { // NOT AN IMAGE
-        return null;
+        $newImg = imagecreatetruecolor(1, 1); // FIND DOMINANT COLOR
+        imagecopyresampled($newImg, $image, 0, 0, 0, 0, 1, 1, imagesx($image), imagesy($image));
+        return dechex(imagecolorat($newImg, 0, 0)); // RETURN HEX COLOR
     }
-    $newImg = imagecreatetruecolor(1, 1); // FIND DOMINANT COLOR
-    imagecopyresampled($newImg, $image, 0, 0, 0, 0, 1, 1, imagesx($image), imagesy($image));
-    return dechex(imagecolorat($newImg, 0, 0)); // RETURN HEX COLOR
 }
 
 
