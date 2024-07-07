@@ -373,8 +373,11 @@ class AppController extends Controller
         if (!$what) {
             $chat = Chat::query()->where('user_id', $user->id);
             if ($search)
-                $chat->where('chat_title', 'like', "%$search")
-                    ->orWhere('chat_username', 'like', "%$search");
+                $chat->where(function ($query) use ($search) {
+                    $query->orWhere('chat_title', 'like', "%$search%")
+                        ->orWhere('chat_username', 'like', "%$search%");
+                });
+
             $chats = $chat->get();
             foreach ($chats as $chat) {
                 $d = Divar::where('chat_id', $chat->chat_id)->where('expire_time', '>=', Carbon::now())->first();
