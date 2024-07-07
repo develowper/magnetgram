@@ -161,6 +161,13 @@ class AppController extends Controller
         $divar->save();
         $user->score -= (Helper::$vip_score);
         $user->save();
+        $first_name = $user->name;
+        $from_id = $user->telegram_id;
+        $chat_username = '@' . $chat->chat_username;
+
+        foreach (Helper::$logs as $log)
+            $this->sendMessage($log, "■  کاربر [$first_name](tg://user?id=$from_id)  $chat_username را پین کرد  .", 'MarkDown', null, null);
+
         return response()->json(['status' => 'success', 'message' => "SUCCESS_PIN"]);
 
 
