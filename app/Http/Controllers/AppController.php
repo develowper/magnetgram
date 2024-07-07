@@ -613,13 +613,13 @@ class AppController extends Controller
         $user = $request->user();
         if (in_array($user->telegram_id, Helper::$Dev)) {
 
-            $user_chats = Chat::pluck('chat_username')->toArray();
+            $user_chats = Chat::pluck('chat_id')->toArray();
 
         } else
-            $user_chats = Chat::where('user_id', $user->id)->pluck('chat_username')->toArray();
+            $user_chats = Chat::where('user_id', $user->id)->pluck('chat_id')->toArray();
         $left = 0;
 
-        foreach (Follower::whereIn('chat_username', $user_chats)->where('left', false)->get() as $f) {
+        foreach (Follower::whereIntegerInRaw('chat_id', $user_chats)->where('left', false)->get() as $f) {
             $vip = $f->in_vip ? 2 : 1;
 
             if ($f->added_by) {
