@@ -238,21 +238,21 @@ class AppController extends Controller
         if (!$info)
             return "CHAT_NOT_FOUND";
 
-        if ($info->type == 'channel') {
-            $tmp = $user->channels;
-            array_push($tmp, $chat_username);
-            $user->channels = $tmp;
-        } else {
-            $tmp = $user->groups;
-            array_push($tmp, $chat_username);
-            $user->groups = $tmp;
-        }
+//        if ($info->type == 'channel') {
+//            $tmp = $user->channels;
+//            array_push($tmp, $chat_username);
+//            $user->channels = $tmp;
+//        } else {
+//            $tmp = $user->groups;
+//            array_push($tmp, $chat_username);
+//            $user->groups = $tmp;
+//        }
 
 
         $user->score -= Helper::$install_chat_score;
         $user->save();
 
-        $this->createChatImage($info->photo, "$info->id");
+        Helper::createChatImage($info->photo, "$info->id");
 
         Chat::create([
             'user_id' => $user->id,
@@ -406,7 +406,7 @@ class AppController extends Controller
             if ($chat) {
                 $info = $this->getChatInfo($chat_id);
                 if ($info) {
-                    $this->createChatImage($info->photo, "$info->id");
+                   Helper::createChatImage($info->photo, "$info->id");
                     $chat->chat_main_color = $this->simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
                     $chat->chat_username = $info->username;
                     $chat->chat_title = $info->title;
@@ -670,20 +670,6 @@ class AppController extends Controller
 
     }
 
-    private
-    function createChatImage($photo, $chat_id)
-    {
-        if (!isset($photo) || !isset($photo->big_file_id)) return;
-        $client = new \GuzzleHttp\Client();
-        $res = $this->creator('getFile', [
-            'file_id' => $photo->big_file_id,
-
-        ])->result->file_path;
-
-        $image = "https://api.telegram.org/file/bot" . env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN') . "/" . $res;
-        Storage::put("public/chats/$chat_id.jpg", $client->get($image)->getBody());
-
-    }
 
     function simple_color_thief($img, $default = null)
     {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Chat;
 use App\Models\Divar;
 use App\Models\Queue;
@@ -99,7 +99,7 @@ class AppControllerSimple extends Controller
 //        }
 
 
-        $this->createChatImage($info->photo, "$info->id");
+        Helper::createChatImage($info->photo, "$info->id");
 
         $chat = Chat::create([
             'user_id' => auth()->user()->id,
@@ -407,18 +407,5 @@ class AppControllerSimple extends Controller
         }
     }
 
-    private
-    function createChatImage($photo, $chat_id)
-    {
-        if (!isset($photo) || !isset($photo->big_file_id)) return;
-        $client = new \GuzzleHttp\Client();
-        $res = $this->creator('getFile', [
-            'file_id' => $photo->big_file_id,
 
-        ])->result->file_path;
-
-        $image = "https://api.telegram.org/file/bot" . env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN') . "/" . $res;
-        Storage::put("public/chats/$chat_id.jpg", $client->get($image)->getBody());
-
-    }
 }

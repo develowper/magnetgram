@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Chat;
 use App\Models\Divar;
 use App\Models\Follower;

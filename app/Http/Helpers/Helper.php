@@ -204,7 +204,7 @@ class Helper
         $chat = Chat::where('chat_id', "$info->id")->first();
 
         if ($chat) {
-            $timestamp = Helper::createChatImage($info->photo, "$chat->image");
+            $timestamp = Helper::createChatImage($info->photo, $chat->chat_id);
 
             $chat->image = $timestamp;
             $chat->chat_username = "@$info->username";
@@ -373,11 +373,11 @@ class Helper
     }
 
     public
-    static function createChatImage($photo, $chat_image)
+    static function createChatImage($photo, $chat_id)
     {
 
         if (!isset($photo) || !isset($photo->big_file_id)) return null;
-        $timestamp = Carbon::now()->timestamp;
+//        $timestamp = Carbon::now()->timestamp;
 
         $client = new \GuzzleHttp\Client();
         $res = Helper::creator('getFile', [
@@ -387,19 +387,19 @@ class Helper
 
 
         $image = "https://api.telegram.org/file/bot" . env('TELEGRAM_BOT_TOKEN', 'YOUR-BOT-TOKEN') . "/" . $res;
-        if (Storage::exists("public/chats/$chat_image.jpg")) {
-            Storage::delete("public/chats/$chat_image.jpg");
+        if (Storage::exists("public/chats/$chat_id.jpg")) {
+            Storage::delete("public/chats/$chat_id.jpg");
         }
-        Storage::put("public/chats/$timestamp.jpg", $client->get($image)->getBody());
+        Storage::put("public/chats/$chat_id.jpg", $client->get($image)->getBody());
 
 
-        $img = Image::make(storage_path("app/public/chats/$timestamp.jpg"));
+        $img = Image::make(storage_path("app/public/chats/$chat_id.jpg"));
         $img2 = Image::make(storage_path("app/public/magnetgramcover.png"));
         $img2->resize($img->width(), $img->height());
         $img->insert($img2, 'center');
-        $img->save(storage_path("app/public/chats/$timestamp.jpg"));
+        $img->save(storage_path("app/public/chats/$chat_id.jpg"));
 
-        return $timestamp;
+        return $chat_id;
 
     }
 
