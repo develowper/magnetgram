@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\AssignOp\Div;
-use function App\Http\Helpers\simple_color_thief;
 
 class AppController extends Controller
 {
