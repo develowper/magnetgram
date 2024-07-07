@@ -150,7 +150,7 @@ class AppController extends Controller
         $type = $request->type;
         $paginate = $request->paginate ?? 24;
         $page = $request->page ?? 1;
-        $sortBy = $request->sortBy ?? 'expire_time';
+        $sortBy = $request->sortBy ?? 'start_time';
         $direction = $request->direction ?? 'DESC';
         $query = Divar::query();
         $user = $request->user();
