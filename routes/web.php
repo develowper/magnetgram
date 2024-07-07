@@ -4,6 +4,7 @@ use App\Http\Helper;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 /*
@@ -20,10 +21,13 @@ use Inertia\Inertia;
 Route::get('/test', function () {
 
     foreach (\App\Models\Divar::get() as $item) {
-//        $item->expire_time = \Carbon\Carbon::now()->addYear(1);
-//        $item->save();
 
-//        $c = \App\Models\Chat::where('chat_id', "$item->chat_id")->first();
+        if (Storage::exists("public/chats/$item->image.jpg")) {
+            Storage::move("public/chats/$item->image.jpg", "public/chats/$item->chat_id.jpg");
+            $item->image = $item->chat_id;
+        }
+
+//            $c = \App\Models\Chat::where('chat_id', "$item->chat_id")->first();
 //        if ($c) {
 //            $item->image = $c->image;
 //            $item->save();
