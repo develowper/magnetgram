@@ -295,7 +295,7 @@ class AppController extends Controller
 
         if (Divar::count() < Helper::$divar_show_items) {
             $d = Divar::create(['user_id' => $user->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat->chat_username, 'image' => $chat->image,
-                'chat_title' => $chat->chat_title, 'chat_description' => $chat->chat_description, 'chat_main_color' => $chat->chat_main_color, 'is_vip' => $vip > 0 ? true : false, 'expire_time' => Carbon::now()->addMinutes($time), 'start_time' => Carbon::now()]);
+                'chat_title' => $chat->chat_title, 'chat_description' => $chat->chat_description, 'chat_main_color' => $chat->chat_main_color, 'is_vip' => $vip > 0 ? true : false, 'expire_time' => Carbon::now()->addHours($time), 'start_time' => Carbon::now()]);
 
             $first_name = $user->name;
             $from_id = $user->telegram_id;
@@ -377,7 +377,7 @@ class AppController extends Controller
                 $info = $this->getChatInfo($chat_id);
                 if ($info) {
                     $this->createChatImage($info->photo, "$info->id");
-                    $chat->chat_main_color =$this->simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
+                    $chat->chat_main_color = $this->simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
                     $chat->chat_username = $info->username;
                     $chat->chat_title = $info->title;
                     $chat->chat_description = $info->description;
