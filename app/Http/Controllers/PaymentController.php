@@ -10,7 +10,7 @@ use App\Http\Helpers\Telegram;
 use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Payment;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Firebase\JWT\JWT;
 use Illuminate\Http\Request;
