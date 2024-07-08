@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdvController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\AppController;
@@ -54,7 +55,7 @@ Route::get('/bot/getme', [BotController::class, 'myInfo']);
 Route::middleware('throttle:sms_limit')->group(function () {
     Route::post('senderror', [APIController::class, 'sendError']);
     Route::post('login', [UserController::class, 'login']);
-    Route::post('/adv/click', [ AdvController::class, 'click'])->name('api.adv.click');
-    Route::get('/adv/search', [ AdvController::class, 'search'])->name('api.adv.search');
+    Route::post('/adv/click', [AdvController::class, 'click'])->name('api.adv.click');
+    Route::get('/adv/get', [AdvController::class, 'get'])->name('api.adv.get');
 
 });

@@ -19,5 +19,16 @@ class AdvController extends Controller
         return Adv::findOrNew($request->id)->increment('clicks');
     }
 
+    public function get(Request $request)
+    {
+        $lang = $request->lang;
+
+        return DB::table('advs')->where(function ($query) use ($lang) {
+            $query->where('lang', $lang)
+                ->orWhereNull('lang');
+        })->where('disabled', '!=', true)->inRandomOrder()->first());
+
+
+    }
 
 }
