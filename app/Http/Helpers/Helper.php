@@ -13,6 +13,9 @@ class Helper
 {
 
     const APP_VERSION = 1;
+    const PACKAGE = 'com.varta.magnetgram';
+    static $BANK = 'zarinpal';
+
     const PRODUCTS = [
         ['name' => "100 عدد سکه", 'key' => "coin-100", 'price' => 5000,],
         ['name' => "300 عدد سکه", 'key' => "coin-300", 'price' => 10000,],

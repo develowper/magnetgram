@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Controllers\Controller;
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
+use App\Http\Helpers\Pay;
+use App\Http\Helpers\Telegram;
 use App\Models\Setting;
 use App\Models\Transaction;
 use App\Models\User;
@@ -328,8 +330,6 @@ class PaymentController extends Controller
             }
 
         } else {
-            if ($p && $this->isKoskesh(User::find($p->user_id), 'bank'))
-                Helper::$BANK = 'zarinpal';
             $response = Pay::confirmPay($request, Helper::$BANK);
 
 
@@ -349,39 +349,14 @@ class PaymentController extends Controller
             $now = now();
             $plan = null;
             $days = 0;
-            if (strpos($p->pay_for, 'vplan-') !== false) {
-                $plan = 'vip';
-                $days = explode('-', $p->pay_for)[1];
-                if ($user->vip_expires_at) {
-                    $date = Carbon::createFromDate($user->vip_expires_at);
-                    if ($now->gt($date)) {
-                        $date = $now;
-                    }
-                } else {
-                    $date = $now;
-                }
-                $user->vip_expires_at = $date->addDays($days)->addDay();
-
-            } elseif (strpos($p->pay_for, 'plan-') !== false) {
-                $plan = 'normal';
-                $days = explode('-', $p->pay_for)[1];
-                if ($user->expires_at) {
-                    $date = Carbon::createFromDate($user->expires_at);
-                    if ($now->gt($date)) {
-                        $date = $now;
-                    }
-                } else {
-                    $date = $now;
-                }
-                $user->expires_at = $date->addDays($days)->addDay();
-            }
-            if ($plan == 'normal' || $plan == 'vip') {
-
+            if (strpos($p->pay_for, 'coin-') !== false) {
+                $coins = explode('-', $p->pay_for)[1] ?? 0;
+                $user->score += $coins;
             }
             $user->save();
             $p->save();
 
-            $plan = array_filter(Helper::$plans, function ($e) use ($p) {
+            $plan = array_filter(Helper::PRODUCTS, function ($e) use ($p) {
                 return $e['key'] == $p->pay_for;
             });
             try {
@@ -399,10 +374,8 @@ class PaymentController extends Controller
                 'type' => $p->pay_for,
                 'coupon' => null,
             ]);
-            if ($this->isKoskesh($user, $p->pay_market))
-                Telegram::log(Helper::$TELEGRAM_GROUP_ID, 'transaction_created', $transaction);
-            else
-                Telegram::sendMessage(Helper::$logs[0], print_r($transaction, true));
+
+            Telegram::sendMessage(Helper::$logs[0], print_r($transaction, true));
 
 
             if ($user && $user->telegram_id) {
@@ -429,7 +402,7 @@ class PaymentController extends Controller
             'pay_id' => $token,
             'amount' => $p->amount ?? 0,
             'type' => $p->pay_for ?? '-',
-            'link' => ('vartastudio://' . Helper::$PACKAGE)
+            'link' => ('vartastudio://' . Helper::PACKAGE)
         ]);
 
     }
