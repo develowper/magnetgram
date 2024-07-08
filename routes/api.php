@@ -46,8 +46,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('penalty', [AppController::class, 'leftUsersPenalty']);
     Route::post('deletechat', [AppController::class, 'deleteChat']);
 
-    Route::post('/adv/click', [AdvController::class, 'click'])->name('api.adv.click');
-    Route::get('/adv/get', [AdvController::class, 'get'])->name('api.adv.get');
+    Route::post('adv/click', [AdvController::class, 'click'])->name('api.adv.click');
+    Route::get('adv/get', [AdvController::class, 'get'])->name('api.adv.get');
 
 });
 Route::post('/bot/getupdates', [BotController::class, 'getupdates']);
