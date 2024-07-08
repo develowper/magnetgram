@@ -67,7 +67,7 @@ class AppController extends Controller
             'adv' => [
                 'type' => [
                     'standard' => 'admob',//
-                    'native' => null, // varta admob tapsell
+                    'native' => 'tapsell', // varta admob tapsell
                     'rewarded' => 'admob',
                     'interstitial' => 'admob',
                 ],
@@ -89,12 +89,12 @@ class AppController extends Controller
                     ],
 
                     'admob' => [
-                        'key' => 'ca-app-pub-4161485899394281~4978799940',
-                        'standard' => 'ca-app-pub-4161485899394281/6718901800',
-                        'native' => 'ca-app-pub-4161485899394281/5645493288',
-                        'rewarded' => 'ca-app-pub-4161485899394281/9120676197',
-                        'interstitial' => 'ca-app-pub-4161485899394281/2480273898',
-                        'open' => 'ca-app-pub-4161485899394281/8640995396',
+                        'key' => 'ca-app-pub-4161485899394281~1512777978',
+                        'standard' => 'ca-app-pub-4161485899394281/5019135495',
+                        'native' => 'ca-app-pub-4161485899394281/1515553492',
+                        'rewarded' => 'ca-app-pub-4161485899394281/8421741184',
+                        'interstitial' => 'ca-app-pub-4161485899394281/9888318799',
+                        'open' => 'ca-app-pub-4161485899394281/3322910446',
                     ]
 
 
