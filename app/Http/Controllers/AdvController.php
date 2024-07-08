@@ -23,10 +23,10 @@ class AdvController extends Controller
     {
         $lang = $request->lang;
 
-        return DB::table('advs')->where(function ($query) use ($lang) {
+        return Adv::where(function ($query) use ($lang) {
             $query->where('lang', $lang)
                 ->orWhereNull('lang');
-        })->where('disabled', '!=', true)->inRandomOrder()->first());
+        })->where('disabled', '!=', true)->inRandomOrder()->first();
 
 
     }
