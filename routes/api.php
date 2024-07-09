@@ -19,7 +19,10 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::any('payment/done', [PaymentController::class, 'payDone'])->name('eblagh.payment.done');
+Route::get('payment/bazaar/token', [PaymentController::class, 'getBazaarToken'])->name('v2.payment.bazaar.token');
+
+
+Route::any('payment/done', [PaymentController::class, 'payDone'])->name('payment.done');
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
