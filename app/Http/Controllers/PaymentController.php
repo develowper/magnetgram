@@ -160,6 +160,7 @@ class PaymentController extends Controller
                 'client_secret' => $this->bazaar_client_secret,
                 'redirect_uri' => url('api/payment/bazaar/token'),
             ]);
+            echo $cafeRequest->body();
             $response = json_decode($cafeRequest->body());
 
             if (isset($response->access_token)) {
@@ -465,9 +466,9 @@ class PaymentController extends Controller
     public function getFirstBazaarToken($code)
     {
 
-        $redirect = "https://qr-image-creator.com/hamsignal/api/eblagh/payment/bazaar/token";
+        $redirect = "https://qr-image-creator.com/magnetgram/api/payment/bazaar/token";
         //type this link in browser
-        // "https://pardakht.cafebazaar.ir/devapi/v2/auth/authorize/?response_type=code&access_type=offline&redirect_uri=https://qr-image-creator.com/hamsignal/api/payment/bazaar/token&client_id=" . $this->bazaar_client_id;
+        // "https://pardakht.cafebazaar.ir/devapi/v2/auth/authorize/?response_type=code&access_type=offline&redirect_uri=https://qr-image-creator.com/magnetgram/api/payment/bazaar/token&client_id=" . $this->bazaar_client_id;
         $response = Http::withHeaders([
             'Content-Type' => 'application/x-www-form-urlencoded',
         ])->asForm()->post("https://pardakht.cafebazaar.ir/devapi/v2/auth/token/", [
