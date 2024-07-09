@@ -439,7 +439,7 @@ class PaymentController extends Controller
         $response = Http::withHeaders([
             'X-Access-Token' => env('MYKET_ACCESS_TOKEN')
         ])
-            ->get("https://developer.myket.ir/api/applications/" . Helper::$PACKAGE . "/purchases/products/$productId/tokens/$purchaseToken");
+            ->get("https://developer.myket.ir/api/applications/" . Helper::PACKAGE . "/purchases/products/$productId/tokens/$purchaseToken");
         if ($response->status() == 200) {
             return true;
         } else {
@@ -453,7 +453,7 @@ class PaymentController extends Controller
         $response = Http::withHeaders([
             'access_token' => "$accessToken"
         ])
-            ->get('https://pardakht.cafebazaar.ir/devapi/v2/api/validate/' . Helper::$PACKAGE . '/inapp/' . $productId . '/purchases/' . $purchaseToken . '/?access_token=' . $accessToken);
+            ->get('https://pardakht.cafebazaar.ir/devapi/v2/api/validate/' . Helper::PACKAGE . '/inapp/' . $productId . '/purchases/' . $purchaseToken . '/?access_token=' . $accessToken);
 
         if ($response->status() == 200) {
             return true;
