@@ -67,7 +67,7 @@ class AppController extends Controller
             'adv' => [
                 'type' => [
                     'standard' => 'admob',//
-                    'native' => 'tapsell', // varta admob tapsell
+                    'native' => 'admob', // varta admob tapsell
                     'rewarded' => 'admob',
                     'interstitial' => 'admob',
                 ],
