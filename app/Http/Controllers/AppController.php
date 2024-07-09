@@ -73,11 +73,11 @@ class AppController extends Controller
                 ],
                 'keys' => [
                     'tapsell' => [
-                        'key' => 'agojnbhlrhdqhgbaomesktqtaihaarrjnmclmsnnhpcerfsmgathastqcrkicimdgirgit',
-                        'standard' => '64625b3c070a01463f7ccce9',
-                        'native' => '64625b52b58411591be308f2',
-                        'rewarded' => '5f68a794196a930001020578',
-                        'interstitial' => '64625b6e234bc24583773c2a',
+                        'key' => 'jbfiaenkccjigohfgoihbftqraklhnbemqngabmbbtrtlpkkpetbldbqjbckmaffmdsfij',
+                        'standard' => '668d770f338f5f0c2e5a6d3c',
+                        'native' => '668d7735338f5f0c2e5a6d3d',
+                        'rewarded' => '668d776d42918a55dec5125a',
+                        'interstitial' => '668d778f42918a55dec5125b',
                     ],
                     'adivery' => [
                         'key' => '8576233c-52ab-4d8b-8cf0-ad7cb4d4c980',
