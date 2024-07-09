@@ -36,7 +36,7 @@ class Telegram
             'reply_to_message_id' => $reply,
             'reply_markup' => $keyboard,
             'disable_notification' => $disable_notification,
-            'message_thread_id' => $topic,
+            'message_thread_id' => null,
         ]);
     }
 
