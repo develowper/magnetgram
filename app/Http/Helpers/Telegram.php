@@ -107,9 +107,9 @@ class Telegram
     static function creator($method, $datas = [])
     {
         if (!str_contains(url('/'), '.com') && !str_contains(url('/'), '.ir')) return;
-//        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
-
-        $url = "https://2sport.ir/api/dabelchin_telegram";
+        $url = "https://api.telegram.org/bot" . env('TELEGRAM_BOT_TOKEN', '') . "/" . $method;
+//
+//        $url = "https://2sport.ir/api/dabelchin_telegram";
         $datas['cmnd'] = $method;
 
 
