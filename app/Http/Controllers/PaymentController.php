@@ -145,6 +145,7 @@ class PaymentController extends Controller
                 $expire->save();
                 return $response->access_token;
             }
+
         } //access token
         elseif ($access->value) {
             return $access->value;
