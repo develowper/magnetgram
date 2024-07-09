@@ -65,6 +65,7 @@ class AppController extends Controller
                 'myket' => env('MYKET_RSA'),
             ],
             'adv' => [
+
                 'type' => [
                     'standard' => 'admob',//
                     'native' => 'admob', // varta admob tapsell
