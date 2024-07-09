@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Chat;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

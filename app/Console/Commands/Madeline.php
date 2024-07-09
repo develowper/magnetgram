@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use App\Tab;
 use App\User;
-use Helper;
+use App\Http\Helpers\Helper;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;

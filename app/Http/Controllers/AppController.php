@@ -106,6 +106,7 @@ class AppController extends Controller
             'payment' => null,
             'hides' => [],
             'products' => Helper::PRODUCTS,
+
             'app_info' => [
                 'version' => Helper::APP_VERSION,
 

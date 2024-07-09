@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Chat;
 use App\Models\Divar;
 use App\Models\Group;
@@ -104,7 +104,7 @@ class TabCreatorDay extends Command
                 $txt .= "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
             }
 
-            $adv = "🟣🔵🟢🔴محل تبلیغ شما🔴🟢🔵🟣" . PHP_EOL . PHP_EOL ;// "🔵🟣تبلیغات ارزان با مگنت گرام🟣🔵";
+            $adv = "🟣🔵🟢🔴محل تبلیغ شما🔴🟢🔵🟣" . PHP_EOL . PHP_EOL;// "🔵🟣تبلیغات ارزان با مگنت گرام🟣🔵";
 //            $adv = "💄محصولات آرایشی و مراقبتی💄
 //👑با دیبادخت ، بهترینِ خودت باش👑
 //🛒💌ارسال به سراسر ایران💌🛒
@@ -112,7 +112,7 @@ class TabCreatorDay extends Command
 //📺 instagram.com/diba_cosmetic72
 //💰کسب درآمد از بازاریابی محصولات💰
 //@dibadokhtonline";
-$adv.="🛍 بازارچه اینترنتی ورتا 🛍
+            $adv .= "🛍 بازارچه اینترنتی ورتا 🛍
 🎁 محصولات خودتو رایگان ثبت کن 🎁
 @vartashopbot
 

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Tab;
 use App\Models\User;
 use Illuminate\Console\Command;

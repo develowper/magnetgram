@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Chat;
 use App\Models\Image;
 use App\Models\Product;

@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Http\Helper;
+use App\Http\Helpers\Helper;
 use App\Models\Divar;
 use App\Models\Tab;
 use App\Models\User;
@@ -73,7 +73,7 @@ class EndTabTime extends Command
         $txt = "🔥💰🎭🥇🏆🎁🎈🎉🎀🎊" . PHP_EOL . PHP_EOL;
         $admin = ($user->telegram_username != "" && $user->telegram_username != "@" ? "$user->telegram_username" :
                 "[$user->name](tg://user?id=$user->telegram_id)") . PHP_EOL;
-        $txt .= "برنده قرعه کشی لیست تبادل مگنت گرامی ها: " .PHP_EOL. "🥇 کانال: " . $winner->chat_username . PHP_EOL . "🎭 کاربر: " . $admin . PHP_EOL . "💰 " . Helper::$lottery_score . " سکه به شما اضافه شد! می توانید برای جایزه عضویت در کانال خود از آن استفاده کنید! " . PHP_EOL;
+        $txt .= "برنده قرعه کشی لیست تبادل مگنت گرامی ها: " . PHP_EOL . "🥇 کانال: " . $winner->chat_username . PHP_EOL . "🎭 کاربر: " . $admin . PHP_EOL . "💰 " . Helper::$lottery_score . " سکه به شما اضافه شد! می توانید برای جایزه عضویت در کانال خود از آن استفاده کنید! " . PHP_EOL;
         $txt .= PHP_EOL . "🔥💰🎭🥇🏆🎁🎈🎉🎀🎊" . PHP_EOL . Helper::$bot;
         Helper::sendMessage(Helper::$divarChannel, Helper::MarkDown($txt), 'markDown');
     }
