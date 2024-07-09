@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Console\Command;
 use Carbon\Carbon;
 
+
 class UpdateDivar extends Command
 {
     /**
