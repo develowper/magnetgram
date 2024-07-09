@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('payment/bazaar/token', [PaymentController::class, 'getBazaarToken'])->name('v2.payment.bazaar.token');
 
 
+//Route::get('payment/getFirstBazaarToken', [PaymentController::class, 'getFirstBazaarToken'])->name('payment.done');
 Route::any('payment/done', [PaymentController::class, 'payDone'])->name('payment.done');
 
 Route::middleware(['auth:sanctum'])->group(function () {
