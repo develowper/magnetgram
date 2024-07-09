@@ -36,8 +36,8 @@ class Helper
     static $tag_score = 5;
     static $tabListLimit = 10;
     static $test = true;
-    static $Dev = [72534783, 871016407, 225594412]; // آیدی عددی ادمین را از بات @userinfobot بگیرید
-    static $logs = [72534783, 225594412];
+    static $Dev = [72534783,]; // آیدی عددی ادمین را از بات @userinfobot بگیرید
+    static $logs = [72534783];
     static $init_score = 10;
     static $ref_score = 2;
     static $divar_show_items = 1000;
