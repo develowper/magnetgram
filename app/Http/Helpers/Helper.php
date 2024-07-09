@@ -17,7 +17,7 @@ class Helper
     static $BANK = 'zarinpal';
 
     const PRODUCTS = [
-        ['name' => "100 عدد سکه", 'key' => "coin-100", 'price' => 50,],
+        ['name' => "100 عدد سکه", 'key' => "coin-100", 'price' => 6000,],
         ['name' => "300 عدد سکه", 'key' => "coin-300", 'price' => 10000,],
         ['name' => "500 عدد سکه", 'key' => "coin-500", 'price' => 15000,],
     ];
