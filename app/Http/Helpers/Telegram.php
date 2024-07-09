@@ -818,9 +818,9 @@ class Telegram
                         $msg .= " 🟠🟠🟠🛒 " . "یک تراکنش انجام شد" . PHP_EOL;
                     $msg .= " 🆔 " . "شناسه کاربر: " . $us->id . PHP_EOL;
                     $msg .= " 👤 " . "نام " . PHP_EOL;
-                    $msg .= $us->fullname . PHP_EOL;
+                    $msg .= $us->name . PHP_EOL;
                     $msg .= " 📱 " . "شماره تماس" . PHP_EOL;
-                    $msg .= $us->phone . PHP_EOL;
+                    $msg .= $us->telegram_username . PHP_EOL;
                     $msg .= " ⭐ " . "نوع" . PHP_EOL;
                     $msg .= $data->title . PHP_EOL;
                     $msg .= " 📊 " . "مقدار" . PHP_EOL;
