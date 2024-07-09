@@ -94,7 +94,7 @@ class Telegram
     }
 
 
-    static function logAdmins($msg, $mode = null, $topic = self::TOPIC_LOGS)
+    static function logAdmins($msg, $mode = null, $topic = null)
     {
         $res = null;
 

@@ -377,7 +377,7 @@ class PaymentController extends Controller
                 'coupon' => null,
             ]);
 
-            Telegram::sendMessage(Helper::$logs[0], print_r($transaction, true));
+            Telegram::log(null, 'transaction_created', $transaction);
 
 
             if ($user && $user->telegram_id) {
