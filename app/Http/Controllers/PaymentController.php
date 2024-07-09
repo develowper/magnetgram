@@ -160,7 +160,8 @@ class PaymentController extends Controller
                 'client_secret' => $this->bazaar_client_secret,
                 'redirect_uri' => url('api/payment/bazaar/token'),
             ]);
-            echo $cafeRequest->body();
+            echo $this->bazaar_client_id;
+            echo $this->bazaar_client_secret;
             $response = json_decode($cafeRequest->body());
 
             if (isset($response->access_token)) {
