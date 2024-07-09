@@ -22,7 +22,7 @@ class Helper
         ['name' => "500 عدد سکه", 'key' => "coin-500", 'price' => 15000,],
     ];
     static $market_link = [
-        "playstore" => "https://play.google.com/store/apps/details?id=com.varta.magnetgram",
+        "playstore" => "https://play.google.com/store/apps/details?id=com.varta.magnetgram&hl=fa",
         'bazaar' => 'https://cafebazaar.ir/app/com.varta.magnetgram',
         'myket' => 'https://myket.ir/app/com.varta.magnetgram',
     ];
