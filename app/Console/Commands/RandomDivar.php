@@ -136,8 +136,8 @@ class RandomDivar extends Command
             $res = Helper::sendMessage($user->telegram_id, $txt, null);
 //            if ($res && $res->ok == false)
 
-            $message = Helper::sendPhoto(Helper::$divarChannel, asset("https://qr-image-creator.com/magnetgram/storage/chats/$chat->image.jpg"), Helper::MarkDown($caption), null, $cell_button);
-            $message = Helper::sendPhoto('@lamassaba', asset("https://qr-image-creator.com/magnetgram/storage/chats/$chat->image.jpg"), Helper::MarkDown($caption), null, $cell_button);
+            $message = Helper::sendPhoto(Helper::$divarChannel, asset("https://qr-image-creator.com/magnetgram/storage/chats/$chat->chat_id.jpg"), Helper::MarkDown($caption), null, $cell_button);
+            $message = Helper::sendPhoto('@lamassaba', asset("https://qr-image-creator.com/magnetgram/storage/chats/$chat->chat_id.jpg"), Helper::MarkDown($caption), null, $cell_button);
 
             break;
         }

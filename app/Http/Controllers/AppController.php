@@ -422,7 +422,7 @@ class AppController extends Controller
                 if ($info) {
                     Helper::createChatImage($info->photo, "$info->id");
                     $chat->chat_main_color = Helper::simple_color_thief(storage_path("app/public/chats/$chat_id.jpg"));
-                    $chat->chat_username = $info->username;
+                    $chat->chat_username = "@$info->username";
                     $chat->chat_title = $info->title;
                     $chat->chat_description = $info->description;
                     $chat->group_id = $group_id;
