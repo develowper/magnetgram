@@ -1635,7 +1635,7 @@ class BotController extends Controller
                     case "pin":
                         $d = Divar::where('chat_username', $what)->first();
                         if ($d) {
-                            $d->is_vip = true;
+                            $d->is_vip = 1;
                             $d->save();
                             $this->sendMessage($from_id, $what . "🟢 pinned successfully !", null, null, null);
                         } else {
@@ -1645,7 +1645,7 @@ class BotController extends Controller
                     case "unpin":
                         $d = Divar::where('chat_username', $what)->first();
                         if ($d) {
-                            $d->is_vip = false;
+                            $d->is_vip = 0;
                             $d->save();
                             $this->sendMessage($from_id, $what . "🟢 unpinned successfully !", null, null, null);
                         } else {
