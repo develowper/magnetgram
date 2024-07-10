@@ -66,7 +66,7 @@ class TabCreator extends Command
                 continue;
 //            $count = $this->getChatMembersCount("$d->chat_id");
 //            if ($count >= 20 && $this->botIsAdminAndHasPrivileges($d->chat_id)) {
-            $g = Group::where('id', $d->group_id)->first();
+            $g = Group::where('id', $d->group_id)->firstOrNew();
 
             Tab::create(['chat_id' => "$d->chat_id", 'chat_title' => $d->chat_description, 'chat_type' => $d->chat_type, 'group' => " $g->emoji " . "#$g->name",
                 'chat_username' => $d->chat_username, 'members' => $d->members, 'user_id' => $d->user_id,
