@@ -1544,7 +1544,8 @@ class BotController extends Controller
                 $txt .= "banner:<متن پیام>" . "\n";
                 $txt .= "ساخت متن با کلید شیشه ای" . "\n";
                 $txt .= "inline:<متن پیام>\nمتن1\nلینک1\n ..." . "\n";
-                $txt .= 'C:command:chat_username' . "\n" . 'commands=' . "\n" . "distag" . "\n" . "distab" . "\n" . "block" . "\n" . "unblock" . "\n" . "delete" . "\n" . "alarm" . "\n";
+                $txt .= 'C:command:chat_username' . "\n" .
+                    'commands=' . "\n" . "distag" . "\n" . "distab" . "\n" . "block" . "\n" . "unblock" . "\n" . "delete" . "\n" . "alarm" . "\n" . "pin" . "\n" . "unpin" . "\n";
                 $txt .= "تبلیغ انتهای پیام ارسالی" . "\n";
                 $txt .= "banner=name=link" . "\n";
                 $this->sendMessage($chat_id, $txt, null, null, null);
@@ -1629,6 +1630,26 @@ class BotController extends Controller
                         } else {
                             $this->sendMessage($from_id, $what . "🔴 not found !", null, null, null);
 
+                        }
+                        break;
+                    case "pin":
+                        $d = Divar::where('chat_username', $what)->delete();
+                        if ($d) {
+                            $d->is_vip = true;
+                            $d->save();
+                            $this->sendMessage($from_id, $what . "🟢 pinned successfully !", null, null, null);
+                        } else {
+                            $this->sendMessage($from_id, $what . "🔴 not found !", null, null, null);
+                        }
+                        break;
+                    case "unpin":
+                        $d = Divar::where('chat_username', $what)->delete();
+                        if ($d) {
+                            $d->is_vip = false;
+                            $d->save();
+                            $this->sendMessage($from_id, $what . "🟢 unpinned successfully !", null, null, null);
+                        } else {
+                            $this->sendMessage($from_id, $what . "🔴 not found !", null, null, null);
                         }
                         break;
                     case "distab":
