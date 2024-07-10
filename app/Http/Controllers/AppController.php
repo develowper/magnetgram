@@ -80,6 +80,7 @@ class AppController extends Controller
                         'rewarded' => '668d776d42918a55dec5125a',
                         'interstitial' => '668d778f42918a55dec5125b',
                     ],
+                    
                     'adivery' => [
                         'key' => '8576233c-52ab-4d8b-8cf0-ad7cb4d4c980',
                         'standard' => 'bda88402-8b6f-47ea-aa94-1af4be57719e',
