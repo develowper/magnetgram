@@ -327,15 +327,15 @@ class AppController extends Controller
         if (in_array($chat_id, Queue::pluck('chat_id')->toArray())) {
             return ['res' => "EXISTS_IN_QUEUE"];
         }
+        $first_name = $user->name;
+        $from_id = $user->telegram_id;
+        $chat_username = '@' . str_replace('@', '', $chat->chat_username);
 
 
         if (Divar::count() < Helper::$divar_show_items) {
-            $d = Divar::create(['user_id' => $user->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat->chat_username, 'image' => $chat->image,
+            $d = Divar::create(['user_id' => $user->id, 'chat_id' => "$chat_id", 'chat_type' => $chat->chat_type, 'chat_username' => $chat_username, 'image' => $chat->image,
                 'chat_title' => $chat->chat_title, 'chat_description' => $chat->chat_description, 'chat_main_color' => $chat->chat_main_color, 'is_vip' => $vip > 0 ? true : false, 'expire_time' => Carbon::now()->addHours($time), 'start_time' => Carbon::now()]);
 
-            $first_name = $user->name;
-            $from_id = $user->telegram_id;
-            $chat_username = '@' . $chat->chat_username;
 
             foreach (Helper::$logs as $log)
                 $this->sendMessage($log, "■  کاربر [$first_name](tg://user?id=$from_id)  $chat_username را وارد دیوار کرد  .", 'MarkDown', null, null);
