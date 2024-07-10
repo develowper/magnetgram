@@ -1622,7 +1622,7 @@ class BotController extends Controller
                     case "delete":
                         $d = Divar::where('chat_username', $what)->delete();
                         $c = Chat::where('chat_username', $what)->delete();
-                        if ($d && $c) {
+                        if ($d || $c) {
 
                             $this->sendMessage($from_id, $what . "🟢 deleted successfully !", null, null, null);
 
