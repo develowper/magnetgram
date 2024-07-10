@@ -85,9 +85,9 @@ class AppController extends Controller
                         'key' => '29e11306-cc67-45d1-970b-89e871c81876',
                         'standard' => 'ce8a85e2-0da5-494f-befd-b832c26142bb',
                         'native' => 'f68470b5-2fd2-4650-ae2d-64223f7f2b50',
-                        'rewarded' => '13a12b06-bfa6-447b-8dd8-c704cdef8bec',
-                        'interstitial' => '8aefccd9-4792-463e-995b-5747ef562044',
-                        'open' => 'cda48f29-d0bc-4c94-bb5b-8186d58ad1f1',
+                        'rewarded' => 'f9ad5f0f-1738-4c3f-8d85-1dc6cf0b6607',
+                        'interstitial' => 'b09e0503-289f-4725-a000-3b4b1b2999f9',
+                        'open' => 'f7720eba-51f2-40a1-9a76-5afcaa6ef39b',
                     ],
 
                     'admob' => [
