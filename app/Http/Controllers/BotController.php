@@ -1633,7 +1633,7 @@ class BotController extends Controller
                         }
                         break;
                     case "pin":
-                        $d = Divar::where('chat_username', $what)->delete();
+                        $d = Divar::where('chat_username', $what)->first();
                         if ($d) {
                             $d->is_vip = true;
                             $d->save();
@@ -1643,7 +1643,7 @@ class BotController extends Controller
                         }
                         break;
                     case "unpin":
-                        $d = Divar::where('chat_username', $what)->delete();
+                        $d = Divar::where('chat_username', $what)->first();
                         if ($d) {
                             $d->is_vip = false;
                             $d->save();
