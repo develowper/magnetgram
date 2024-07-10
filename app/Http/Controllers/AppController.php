@@ -80,11 +80,11 @@ class AppController extends Controller
                         'rewarded' => '668d776d42918a55dec5125a',
                         'interstitial' => '668d778f42918a55dec5125b',
                     ],
-                    
+
                     'adivery' => [
-                        'key' => '8576233c-52ab-4d8b-8cf0-ad7cb4d4c980',
-                        'standard' => 'bda88402-8b6f-47ea-aa94-1af4be57719e',
-                        'native' => '8d8d6297-551a-4aa6-8176-dc0524867e74',
+                        'key' => '29e11306-cc67-45d1-970b-89e871c81876',
+                        'standard' => 'ce8a85e2-0da5-494f-befd-b832c26142bb',
+                        'native' => 'f68470b5-2fd2-4650-ae2d-64223f7f2b50',
                         'rewarded' => '13a12b06-bfa6-447b-8dd8-c704cdef8bec',
                         'interstitial' => '8aefccd9-4792-463e-995b-5747ef562044',
                         'open' => 'cda48f29-d0bc-4c94-bb5b-8186d58ad1f1',
