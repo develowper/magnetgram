@@ -1583,7 +1583,7 @@ class BotController extends Controller
 
                 $command = $inputs[1];
                 if (count($inputs) > 2)
-                    $what = $inputs[2];
+                    $what = "@" . str_replace('@', '', $inputs[2]);
 
                 switch ($command) {
                     case "block":
