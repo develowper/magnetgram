@@ -1698,6 +1698,12 @@ class BotController extends Controller
                 $chat_id = explode(":", $text)[0];
                 $hours = explode(":", $text)[2];
                 $info = $this->getChatInfo($chat_id)->result;
+                if ($hours == "delete") {
+                    Divar::where('chat_id', "$info_id")->delete();
+                    Queue::where('chat_id', "$info_id")->delete();
+                    $this->sendMessage($from_id, "با موفقیت حذف شد!", null, null, null);
+                    return;
+                }
                 if (!$info) {
                     $this->sendMessage($from_id, "کانال/گروه وجود ندارد", null, null, null);
                     return;
@@ -1707,12 +1713,7 @@ class BotController extends Controller
                 $queue_ids = Queue::pluck('chat_id')->toArray();
 
                 if (in_array($info_id, $divar_ids) || in_array($info_id, $queue_ids)) {
-                    if ($hours == "delete") {
-                        Divar::where('chat_id', "$info_id")->delete();
-                        Queue::where('chat_id', "$info_id")->delete();
-                        $this->sendMessage($from_id, "با موفقیت حذف شد!", null, null, null);
-                        return;
-                    }
+
                     $this->sendMessage($from_id, "این گروه/کانال از قبل در دیوار وجود دارد!", null, null, null);
                     return;
                 }
