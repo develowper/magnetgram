@@ -8,7 +8,7 @@ use App\Models\Chat;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Morilog\Jalali\Jalalian;
-use function App\Http\textFancy;
+
 
 class DailyMessages extends Command
 {
@@ -80,7 +80,7 @@ class DailyMessages extends Command
 
             $txt = $ptxt;
 
-            $txt .= textFancy(str_replace('@', '', $channel->chat_username)) . PHP_EOL . PHP_EOL;
+            $txt .= Helper::textFancy(str_replace('@', '', $channel->chat_username)) . PHP_EOL . PHP_EOL;
 //        $txt .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
             $txt .= DB::table('repository')->where('type', 'te:an')->inRandomOrder()->first()->description . PHP_EOL;
             $txt .= "\xD8\x9C" . "➖➖➖➖➖➖➖➖➖➖➖" . PHP_EOL;
