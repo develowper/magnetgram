@@ -120,8 +120,9 @@ class Helper
         $res = json_decode($res);
 
         if ($res && $res->ok == false)
-            Helper::sendMessage(Helper::$logs[0], /*"[" . $datas['chat_id'] . "](tg://user?id=" . $datas['chat_id'] . ") \n" .*/
-                json_encode($method) . "\n" . json_encode($datas) . "\n" . $res->description, null, null, null);
+            Helper::sendMessage(Helper::$logs[0],$datas['chat_username'],null);
+//            Helper::sendMessage(Helper::$logs[0], /*"[" . $datas['chat_id'] . "](tg://user?id=" . $datas['chat_id'] . ") \n" .*/
+//                json_encode($method) . "\n" . json_encode($datas) . "\n" . $res->description, null, null, null);
 
 //        Helper::sendMessage(Helper::$logs[0], ..$res->description, null, null, null);
         if (curl_error($ch)) {
@@ -365,13 +366,13 @@ class Helper
     }
 
     static
-    function Forward($chatid, $from_id, $massege_id, $chatUsername = null, $disable_notification = false)
+    function Forward($chatid, $from_id, $message_id, $chatUsername = null, $disable_notification = false)
     {
         return Helper::creator('forwardMessage', [
             'chat_id' => $chatid,
             'chat_username' => $chatUsername,
             'from_chat_id' => $from_id,
-            'message_id' => $massege_id,
+            'message_id' => $message_id,
             'disable_notification' => $disable_notification,
         ]);
     }
