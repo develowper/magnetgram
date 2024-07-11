@@ -50,7 +50,7 @@ class SendMessages extends Command
                 if ($item->message_id != null && $item->from_id != null) {
                     $res = Helper::Forward($item->id, $item->from_id, $item->message_id);
                     if ($res->ok == false)
-                        User::where('telegram_id', $item->id)->delete();
+                        User::where('telegram_id', $item->id)->update(['active' => 0]);
                     if ($item->for && $item->for == 't' && $res->ok && isset($res->result)) {
                         Tab::where('chat_id', $item->id)->update(['message_id' => $res->result->message_id]);
                     }
