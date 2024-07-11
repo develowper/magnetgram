@@ -1481,7 +1481,7 @@ class BotController extends Controller
                 $this->user->save();
                 if (DB::table('queue')->where('message_id', $message_id)->count() == 0) {
 
-                    $ids = User::where('telegram_id', '!=', null)->get('telegram_id AS id', 'app_id');
+                    $ids = User::where('telegram_id', '!=', null)->where('active', true)->get('telegram_id AS id', 'app_id');
                     $ids = $ids->map(function ($item) use ($message_id, $from_id) {
                         $item['message_id'] = $message_id;
                         $item['from_id'] = $from_id;
