@@ -120,7 +120,7 @@ class Helper
         $res = json_decode($res);
 
         if ($res && $res->ok == false)
-            Helper::sendMessage(Helper::$logs[0],$datas['chat_username'],null);
+            Helper::sendMessage(Helper::$logs[0], '$datas[chat_username]', null);
 //            Helper::sendMessage(Helper::$logs[0], /*"[" . $datas['chat_id'] . "](tg://user?id=" . $datas['chat_id'] . ") \n" .*/
 //                json_encode($method) . "\n" . json_encode($datas) . "\n" . $res->description, null, null, null);
 
