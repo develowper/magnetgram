@@ -220,6 +220,11 @@ class BotController extends Controller
             $button = json_encode(['keyboard' => [
                 in_array($from_id, $this->Dev) ? [['text' => 'پنل مدیران🚧']] : [],
                 [['text' => '📈 دیوار 📈']],
+                [/*['text' => 'مدیریت گروه ها📢'],*/
+                    ['text' => 'مدیریت کانال ها📣']],
+                [
+                    ['text' => 'دانلود اپلیکیشن📥']
+                ],
                 [
                     ['text' => '🛒 بازار 🛒'],
                     ['text' => '🧿تبادل اینستاگرام🧿'],
@@ -229,8 +234,7 @@ class BotController extends Controller
 //                [/*['text' => 'ثبت گروه💥'],*/
 //                    ['text' => 'ثبت کانال💥']
 //                ],
-                [/*['text' => 'مدیریت گروه ها📢'],*/
-                    ['text' => 'مدیریت کانال ها📣']],
+
                 [['text' => "🎴 ساخت دکمه شیشه ای 🎴"], ['text' => "📌 دریافت بنر تبلیغاتی 📌"]],
                 [['text' => "📱 خرید شارژ 📱"], ['text' => "📱 خرید اینترنت 📱"], ['text' => "🙏 حمایت از ما 🙏"]],
 
@@ -260,6 +264,12 @@ class BotController extends Controller
                 [['text' => "🚶 مشاهده فالورها", 'callback_data' => 'see_followers']],
                 [['text' => "❓ راهنمای دستورات", 'callback_data' => 'admin_help']],
                 [['text' => "📊 آمار", 'callback_data' => 'statistics']],
+            ], 'resize_keyboard' => true]);
+            $appLinks_button = json_encode(['inline_keyboard' => [
+                [['text' => "📬 پلی استور(پیشنهادی)", 'url' => Helper::$market_link['playstore']]],
+                [['text' => "📬 کافه بازار", 'url' => Helper::$market_link['bazaar']]],
+                [['text' => "🚶 مشاهده کاربران", 'callback_data' => 'see_users']],
+                [['text' => "🚶 مشاهده فالورها", 'callback_data' => 'see_followers']],
             ], 'resize_keyboard' => true]);
             $send_cancel_button = json_encode(['inline_keyboard' => [
                 [['text' => "لغو ارسال⬅", 'callback_data' => "send_cancel"]],
@@ -300,6 +310,11 @@ class BotController extends Controller
                 $txt .= "6⃣ لیستی که به کانال شما ارسال می شود برای کانال های آن لیست هم ارسال خواهد شد. در صورت مشاهده تخلف به پشتیبانی اطلاع دهید" . PHP_EOL;
                 $txt .= " پشتیبانی: " . Helper::$admin . PHP_EOL;
                 $this->sendMessage($chat_id, $txt, "Markdown", null, null);
+
+            } elseif ($text == 'دانلود اپلیکیشن📥') {
+                $txt = "از هر کدام از لینک های زیر می توانید اپلیکیشن را دانلود نمایید" . PHP_EOL;
+                $txt .= " پشتیبانی: " . Helper::$admin . PHP_EOL;
+                $this->sendMessage($chat_id, $txt, null, null, $appLinks_button);
 
             } elseif ($text == 'تگ اتوماتیک🏁') {
                 $txt = "🏆 *با فعالسازی این قابلیت، هنگام کپی یا فورواد مطالب در کانال خود، تگ های اضافی حذف و تگ کانال شما زیر هر پست قرار میگیرد  *" . PHP_EOL . PHP_EOL;
@@ -1748,7 +1763,7 @@ class BotController extends Controller
                 Helper::createChatImage($info->photo, "$info_id");
 
             } elseif ($text == "ثبت نام✅") {
-                return;
+
                 if ($this->user) $this->sendMessage($chat_id, "شما قبلا ثبت نام کرده اید", 'MarkDown', $message_id, $button);
 //                else if ($username == "@" || $username == "") $this->sendMessage($chat_id, "لطفا قبل از ثبت نام, از منوی تنظیمات تلگرام خود, یک نام کاربری به اکانت خود تخصیص دهید!", 'MarkDown', $message_id, $button);
                 else {
