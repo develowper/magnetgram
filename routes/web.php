@@ -21,6 +21,7 @@ use Inertia\Inertia;
 
 Route::get('/test', function () {
 
+    Artisan::call('send:messages');
 //    foreach (DB::table('queue')->get() as $item) {
 //        $u = \App\Models\User::where('telegram_id', $item->id)->first()->telegram_username ?? null;
 //        if ($u)
