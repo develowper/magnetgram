@@ -268,8 +268,6 @@ class BotController extends Controller
             $appLinks_button = json_encode(['inline_keyboard' => [
                 [['text' => "📬 پلی استور(پیشنهادی)", 'url' => Helper::$market_link['playstore']]],
                 [['text' => "📬 کافه بازار", 'url' => Helper::$market_link['bazaar']]],
-                [['text' => "🚶 مشاهده کاربران", 'callback_data' => 'see_users']],
-                [['text' => "🚶 مشاهده فالورها", 'callback_data' => 'see_followers']],
             ], 'resize_keyboard' => true]);
             $send_cancel_button = json_encode(['inline_keyboard' => [
                 [['text' => "لغو ارسال⬅", 'callback_data' => "send_cancel"]],
