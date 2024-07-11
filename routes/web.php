@@ -24,7 +24,7 @@ Route::get('/test', function () {
     foreach (DB::table('queue')->get() as $item) {
         $u = \App\Models\User::where('telegram_id', $item->id)->first()->telegram_username ?? null;
         if ($u)
-            $item->update(['username' => $u]);
+            DB::table('queue')->where('i', $item->i)->update(['username' => $u]);
     }
 
 
