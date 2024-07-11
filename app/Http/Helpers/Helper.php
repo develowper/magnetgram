@@ -365,10 +365,11 @@ class Helper
     }
 
     static
-    function Forward($chatid, $from_id, $massege_id, $disable_notification = false)
+    function Forward($chatid, $from_id, $massege_id, $chatUsername = null, $disable_notification = false)
     {
         return Helper::creator('forwardMessage', [
             'chat_id' => $chatid,
+            'chat_username' => $chatUsername,
             'from_chat_id' => $from_id,
             'message_id' => $massege_id,
             'disable_notification' => $disable_notification,
@@ -462,7 +463,8 @@ class Helper
         imagecopyresampled($newImg, $image, 0, 0, 0, 0, 1, 1, imagesx($image), imagesy($image));
         return dechex(imagecolorat($newImg, 0, 0)); // RETURN HEX COLOR
     }
-  public static  function textFancy($str)
+
+    public static function textFancy($str)
     {
         $src = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
         $src2 = array('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
@@ -494,7 +496,6 @@ function w2e($str)
     $western = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
     return str_replace($western, $eastern, $str);
 }
-
 
 
 function sort_banners_by($column, $body)

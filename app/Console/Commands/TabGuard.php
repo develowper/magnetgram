@@ -84,7 +84,7 @@ class TabGuard extends Command
         $blockMessage = "";
         foreach ($tabs as $tab) {
 
-            $res = Helper::Forward(Helper::$logs[0], $tab->chat_id, $tab->message_id, true);
+            $res = Helper::Forward(Helper::$logs[0], $tab->chat_id, $tab->message_id, $tab->chat_username, true);
             if (isset($res) && $res->ok == false) {
                 Divar::where('chat_id', "$tab->chat_id")->update(['blocked' => true]);
                 Chat::where('chat_id', "$tab->chat_id")->update(['active' => false]);
