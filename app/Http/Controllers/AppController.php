@@ -245,6 +245,9 @@ class AppController extends Controller
         if (!$info)
             return response()->json(['message' => 'CHAT_NOT_FOUND', 'status' => 'danger']);
 
+        if (Chat::where("chat_id", "$info->id")->exists())
+            return response()->json(['message' => 'CHAT_EXISTS', 'status' => 'danger']);
+
 //        if ($info->type == 'channel') {
 //            $tmp = $user->channels;
 //            array_push($tmp, $chat_username);
