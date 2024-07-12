@@ -266,7 +266,7 @@ class AppController extends Controller
 
         Chat::create([
             'user_id' => $user->id,
-            'group_id' => is_numeric($group_id) ? $group_id : null,
+            'group_id' => $group_id ?? null,
             'user_telegram_id' => $user->telegram_id,
             'chat_id' => "$info->id",
             'chat_type' => $info->type,
