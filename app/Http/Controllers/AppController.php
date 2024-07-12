@@ -224,6 +224,7 @@ class AppController extends Controller
     protected function newChat(Request $request)
     {
         $chat_username = "@" . str_replace("@", "", $request->chat_username);
+        $group_id = $request->group_id;
         $user = $request->user();
         if ($user->score < Helper::$install_chat_score)
             return response()->json(['message' => 'LOW_SCORE', 'status' => 'danger']);
@@ -262,6 +263,7 @@ class AppController extends Controller
 
         Chat::create([
             'user_id' => $user->id,
+            'group_id' => $group_id,
             'user_telegram_id' => $user->telegram_id,
             'chat_id' => "$info->id",
             'chat_type' => $info->type,
