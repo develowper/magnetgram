@@ -269,7 +269,7 @@ class AppController extends Controller
             'group_id' => $group_id ?? null,
             'user_telegram_id' => $user->telegram_id,
             'chat_id' => "$info->id",
-            'chat_type' => $info->type,
+            'chat_type' => $info->type == 'channel' ? 'c' : 'g',
             'chat_username' => '@' . $info->username,
             'chat_main_color' => Helper::simple_color_thief(storage_path("app/public/chats/$info->id.jpg")),
             'chat_title' => $info->title,
