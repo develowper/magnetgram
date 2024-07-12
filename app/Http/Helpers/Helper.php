@@ -55,13 +55,14 @@ class Helper
     static $admin = "@develowper";
     static $divarChannel = "@magnetgramwall";
     static $bot_id = "1180050721";
-    static $app_link = "https://play.google.com/store/apps/details?id=com.varta.magnetgram_simple";
+    static $app_link = "https://play.google.com/store/apps/details?id=com.varta.magnetgram";
     static $youtube_link = "https://www.youtube.com/channel/UCzwQ6GnoNQG1PwpqZhkIogA";
     static $channel = "@vartastudio"; // ربات را ادمین کانال کنید
     static $info = "\n\n*@magnetgrambot*\n\n\n👦[Admin 1](instagram.com/develowper)\n\n👱[Admin 2](tg://user?id=72534783)\n\n\n🅼🅰🅶🅽🅴🆃 🅶🆁🅰🅼\n  \n🏠 *@vartastudio*  \n📸 *instagram.com/vartastudio*";
 
 
 //-----------------------------//
+    public static $min_members = 5;
 
     static function sendMessage($chat_id, $text, $mode = null, $reply = null, $keyboard = null, $disable_notification = false, $app_id = null)
     {
