@@ -26,6 +26,5 @@ jobs:
             server.php
             app/**
             database/**
-            lang/**
             config/**
             public/**
