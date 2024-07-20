@@ -16,7 +16,8 @@ class Divar extends Model
         'chat_main_color', 'start_time', 'expire_time', 'is_vip', 'message_id', 'follow_score', 'ref_score', 'processed', 'blocked', 'validated', 'members'
     ];
     protected $casts = [
-        // 'chat_id' => 'string',
+          'user_id' => 'string',
+         'chat_id' => 'string',
         'expire_time' => 'timestamp',
         'start_time' => 'timestamp',
     ];
