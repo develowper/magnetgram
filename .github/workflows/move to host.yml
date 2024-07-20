@@ -28,3 +28,4 @@ jobs:
             database/**
             lang/**
             config/**
+            public/**
