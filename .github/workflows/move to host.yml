@@ -12,7 +12,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ftp.qr-image-creator.com
-          protocol: ftps
+          protocol: ftp
           port: 21
           username: qrimagec
           password: ${{ secrets.FTP_PASSWORD }}
@@ -24,7 +24,4 @@ jobs:
             **/node_modules/**
             vendor/**
             server.php
-            app/**
-            database/**
-            lang/**
-            resources/**
+
