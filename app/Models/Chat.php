@@ -17,6 +17,7 @@ class Chat extends Model
     ];
     protected $casts = [
         'chat_id' => 'string',
+
         'user_id' => 'string',
         //'expire_time' => 'timestamp',
 
