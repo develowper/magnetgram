@@ -25,3 +25,4 @@ jobs:
             vendor/**
             server.php
             app/**
+            database/**
