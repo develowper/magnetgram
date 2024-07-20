@@ -28,4 +28,5 @@ jobs:
             database/**
             lang/**
             config/**
+            resources/**
             public/**
